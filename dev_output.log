@@ -7,3 +7,5 @@
 
   ➜  Local:   http://localhost:3000/
   ➜  Network: http://192.168.0.2:3000/
+3:55:39 PM [vite] hmr update /src/index.css, /src/App.jsx
+4:20:01 PM [vite] hmr update /src/App.jsx, /src/index.css

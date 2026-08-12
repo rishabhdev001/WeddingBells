@@ -23,7 +23,10 @@ export const seedProfiles = [
     food_preference: "Vegetarian",
     smoking_status: "No",
     drinking_status: "Socially",
+    weed_status: "No",
     hobbies: ["Classical Dance", "Reading", "Hiking"],
+    special_interests: ["Astro-physics", "Sanskrit literature", "Sustainable gardening"],
+    interesting_facts: ["I've climbed three peaks in India", "I speak 4 languages fluently", "I love baking sourdough bread"],
     about_me: "I work in IT and enjoy my career, but family is extremely important to me. I am flexible about where I live after marriage, but prefer South or West India. I believe in balancing traditional values with modern aspirations.",
     partner_expectations: "Looking for someone who is career-oriented but also values family time. A professional working in Bangalore or Hyderabad, preferably vegetarian, who believes in equal partnership and open communication.",
     lifestyle: "Moderately active, enjoys weekend getaways and quiet reading evenings. Values clean living and healthy nutrition.",
@@ -58,7 +61,10 @@ export const seedProfiles = [
     food_preference: "Vegetarian",
     smoking_status: "No",
     drinking_status: "No",
+    weed_status: "No",
     hobbies: ["Yoga", "Cooking", "Photography"],
+    special_interests: ["Behavioral economics", "Mechanical keyboards", "Indian filter coffee history"],
+    interesting_facts: ["I can cook an authentic 5-course South Indian meal", "I have taken over 10,000 photos on my DSLR", "I completed a 10-day Vipassana meditation course"],
     about_me: "I am a career-oriented Product Manager in Bangalore, but I deeply value family time and traditional connections. I love staying active and exploring culinary arts.",
     partner_expectations: "Seeking a family-oriented, vegetarian professional who lives or is willing to live in Bangalore. Mutual respect and common value systems are vital.",
     lifestyle: "Vegetarian, non-smoker, loves morning yoga and home cooking.",
@@ -93,7 +99,10 @@ export const seedProfiles = [
     food_preference: "Non-Vegetarian",
     smoking_status: "No",
     drinking_status: "No",
+    weed_status: "No",
     hobbies: ["Violin", "Gardening", "Volunteering"],
+    special_interests: ["Classical music composition", "Herbal medicine", "Historical architecture"],
+    interesting_facts: ["I performed a violin solo in a state auditorium", "I run a community nursery in my balcony", "I have volunteered in 5 healthcare camps"],
     about_me: "Professionally established doctor in Hyderabad. Deeply family-oriented, spiritual, and passionate about humanitarian work. I value compassionate communication.",
     partner_expectations: "An educated Muslim professional, preferably a doctor or senior manager, who lives in Hyderabad or is open to relocating. Someone who values life partnership and emotional depth.",
     lifestyle: "Active and disciplined hospital routine, spiritual, values healthy communication and home hobbies.",
@@ -127,7 +136,10 @@ export const seedProfiles = [
     food_preference: "Non-Vegetarian",
     smoking_status: "No",
     drinking_status: "Socially",
+    weed_status: "No",
     hobbies: ["Acoustic Guitar", "Chess", "Writing Blogs"],
+    special_interests: ["Generative art", "Folk musical instruments", "Indie cinema criticism"],
+    interesting_facts: ["I run a tech blog with 50,000 monthly readers", "I play 3 musical instruments", "I once won a state chess championship"],
     about_me: "Data scientist with a blend of tech curiosity and artistic soul. I value simple living, long conversations, and deep traditional Bengali roots.",
     partner_expectations: "A career-oriented yet family-respecting girl, open to residing in Kolkata or migrating. Someone who is friendly and communicative.",
     lifestyle: "Loves classical literature, quiet weekends with filter coffee, and occasional trekking.",
@@ -161,7 +173,10 @@ export const seedProfiles = [
     food_preference: "Vegetarian",
     smoking_status: "No",
     drinking_status: "No",
+    weed_status: "No",
     hobbies: ["Travelling", "Interior Design", "Cycling"],
+    special_interests: ["Mid-century modern design", "Specialty espresso brewing", "Bicycle restoration"],
+    interesting_facts: ["I've back-packed across 12 countries in Europe", "I designed a popular mobile app UI with over 1M downloads", "I speak German at a conversational level"],
     about_me: "Creative, independent designer based in Delhi. I am vegetarian, a complete non-smoker, and highly family-oriented. I believe in enjoying life's little moments.",
     partner_expectations: "An optimistic, friendly professional with a strong sense of humor. Someone who enjoys traveling and is located in or open to relocating to Delhi.",
     lifestyle: "Travel lover, fitness enthusiast, non-smoker, vegetarian food lover.",
@@ -195,7 +210,10 @@ export const seedProfiles = [
     food_preference: "Vegetarian",
     smoking_status: "No",
     drinking_status: "No",
+    weed_status: "No",
     hobbies: ["Baking", "Marathon Running", "Sketching"],
+    special_interests: ["Behavioral finance", "French pastry arts", "Oil pastels illustration"],
+    interesting_facts: ["I have completed 3 half-marathons", "I can bake perfect French macarons", "I sketch beautiful portraits of standard cityscapes"],
     about_me: "I am a structured financial analyst living in Mumbai. I lead an active, healthy lifestyle and am very close to my parents. I value mutual understanding, transparency, and a stable routine.",
     partner_expectations: "Looking for an established professional in Mumbai or Pune, non-smoker, vegetarian, and well-educated. Must have a high regard for family bonds.",
     lifestyle: "Early riser, marathon runner, loves quiet home baking and sketching sessions.",
@@ -268,7 +286,7 @@ export function calculateHybridScore(userProfile, targetProfile) {
     score += 4;
   }
 
-  // 5. Lifestyle (15%) - food habits, smoking, drinking
+  // 5. Lifestyle (15%) - food habits, smoking, drinking, weed
   let lifestyleMatch = true;
   if (userProfile.food_preference && targetProfile.food_preference) {
     if (userProfile.food_preference === targetProfile.food_preference) {
@@ -278,19 +296,30 @@ export function calculateHybridScore(userProfile, targetProfile) {
     }
   }
   if (userProfile.smoking_status === "No" && targetProfile.smoking_status === "No") {
-    score += 5;
+    score += 3;
   } else {
     lifestyleMatch = false;
   }
   if (userProfile.drinking_status === "No" && targetProfile.drinking_status === "No") {
-    score += 5;
+    score += 4;
+  } else if (userProfile.drinking_status === targetProfile.drinking_status) {
+    score += 4;
   } else {
-    score += 3;
+    score += 2;
   }
-  if (lifestyleMatch) {
-    reasons.push("Identical lifestyle preferences");
+  // Weed habit safety check
+  if ((userProfile.weed_status === "No" || !userProfile.weed_status) && (targetProfile.weed_status === "No" || !targetProfile.weed_status)) {
+    score += 3;
+  } else if (userProfile.weed_status === targetProfile.weed_status) {
+    score += 3;
   } else {
-    reasons.push("Complimentary lifestyle habits");
+    score += 1;
+  }
+
+  if (lifestyleMatch) {
+    reasons.push("Highly aligned lifestyle preferences");
+  } else {
+    reasons.push("Complementary lifestyle habits");
   }
 
   // 6. Family expectations (10%)
@@ -314,7 +343,7 @@ export function calculateHybridScore(userProfile, targetProfile) {
     score += 3;
   }
 
-  // 8. Interests / Hobbies (10%)
+  // 8. Interests / Hobbies / Intresting Facts (10%)
   const sharedHobbies = userProfile.hobbies?.filter(hobby => targetProfile.hobbies?.includes(hobby)) || [];
   if (sharedHobbies.length > 0) {
     score += 10;

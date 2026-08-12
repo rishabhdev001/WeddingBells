@@ -1,13 +1,10 @@
 
-> wedding-bells@1.0.0 dev
+> purevows-ai@1.0.0 dev
 > vite
 
 
-  VITE v5.4.21  ready in 243 ms
+  VITE v5.4.21  ready in 530 ms
 
   ➜  Local:   http://localhost:3000/
   ➜  Network: http://192.168.0.2:3000/
-3:32:34 PM [vite] hmr update /src/App.jsx, /src/index.css
-3:34:26 PM [vite] page reload index.html
-3:34:33 PM [vite] hmr update /src/App.jsx, /src/index.css
-3:35:39 PM [vite] hmr update /src/App.jsx, /src/index.css
+4:25:52 PM [vite] hmr update /src/App.jsx, /src/index.css
