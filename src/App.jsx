@@ -385,61 +385,92 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-pink-200">
+    <div className="min-h-screen bg-gradient-to-tr from-slate-900 via-slate-950 to-pink-950/20 text-slate-100 flex flex-col font-sans selection:bg-pink-700 selection:text-white relative overflow-x-hidden">
+
+      {/* Premium Elegant Structural Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:24px_36px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_80%,transparent_100%)] -z-10" />
+
+      {/* Beautiful Premium Glow Backdrops */}
+      <div className="absolute top-[-15%] left-[-15%] w-[60%] h-[50%] rounded-full bg-gradient-to-tr from-pink-500/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-[10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-indigo-500/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-[30%] left-[25%] w-[40%] h-[40%] rounded-full bg-gradient-to-tr from-amber-500/5 to-transparent blur-[140px] pointer-events-none -z-10" />
 
       {/* Toast notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 bg-slate-900 text-white py-3 px-5 rounded-xl shadow-2xl flex items-center gap-3 z-50 animate-bounce">
-          <Zap className="text-yellow-400 w-5 h-5" />
-          <span className="font-medium text-sm">{toastMessage}</span>
+        <div className="fixed bottom-8 right-8 bg-slate-900 border border-slate-800 text-white py-4 px-6 rounded-2xl shadow-2xl flex items-center gap-3 z-50 animate-bounce">
+          <Zap className="text-pink-400 w-5 h-5" />
+          <span className="font-bold text-sm tracking-wide">{toastMessage}</span>
         </div>
       )}
 
       {/* HEADER NAVBAR */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-3">
-          <div className="bg-gradient-to-tr from-pink-500 to-rose-500 p-2.5 rounded-2xl text-white shadow-md shadow-pink-100">
-            <Heart className="w-6 h-6 fill-white" />
+      <header className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-white/5 shadow-2xl px-6 py-5 flex flex-col md:flex-row justify-between items-center gap-5">
+        <div className="flex items-center gap-4">
+
+          {/* Custom Beautiful Interlocking Rings SVG Logo (PureVows AI) */}
+          <div className="flex items-center justify-center p-1 bg-white/5 rounded-2xl border border-white/10 shadow-inner">
+            <svg className="w-12 h-12" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="roseRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#db2777" />
+                  <stop offset="100%" stopColor="#f43f5e" />
+                </linearGradient>
+                <linearGradient id="goldRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#fbbf24" />
+                  <stop offset="100%" stopColor="#d97706" />
+                </linearGradient>
+              </defs>
+              {/* Left Ring (Rose gradient) */}
+              <circle cx="38" cy="50" r="22" stroke="url(#roseRingGrad)" strokeWidth="6" fill="none" />
+              {/* Right Ring (Gold gradient) with stroke-dasharray for beautiful overlap */}
+              <circle cx="62" cy="50" r="22" stroke="url(#goldRingGrad)" strokeWidth="6" strokeDasharray="110 30" fill="none" />
+              <circle cx="62" cy="50" r="22" stroke="url(#goldRingGrad)" strokeWidth="6" fill="none" className="opacity-20" />
+              {/* Interlocking central star matching sparkle */}
+              <path d="M50 34 L52.5 42.5 L61 45 L52.5 47.5 L50 56 L47.5 47.5 L39 45 L47.5 42.5 Z" fill="#fbbf24" className="animate-pulse" />
+            </svg>
           </div>
+
           <div>
-            <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">
-              WeddingBells
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-2 bg-slate-100 px-2 py-0.5 rounded-full">
-              AI-First Matrimony
+            <div className="flex items-center gap-2">
+              <span className="text-2xl md:text-3xl font-black tracking-tight bg-gradient-to-r from-pink-400 via-rose-400 to-amber-300 bg-clip-text text-transparent">
+                PureVows AI
+              </span>
+            </div>
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+              Trusted AI Matrimonial Marketplace
             </span>
           </div>
         </div>
 
         {/* Multi-generational workspace profile selector */}
-        <div className="flex flex-wrap items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
-          <span className="text-xs font-bold text-slate-500 px-2">Account Context:</span>
+        <div className="flex flex-wrap items-center gap-2.5 bg-slate-900/90 p-2 rounded-2xl border border-white/10 shadow-lg">
+          <span className="text-xs font-extrabold text-slate-400 px-2.5 uppercase tracking-wider">Account Context:</span>
           <button
             onClick={() => handleRoleChange("self")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs md:text-sm font-extrabold transition-all duration-200 ${
               currentUser.account_type === 'self'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-gradient-to-r from-pink-600 to-rose-500 text-white shadow-md shadow-pink-900/30'
+                : 'text-slate-300 hover:text-white hover:bg-white/5'
             }`}
           >
             👤 Self-Managed
           </button>
           <button
             onClick={() => handleRoleChange("parent")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs md:text-sm font-extrabold transition-all duration-200 ${
               currentUser.account_type === 'parent'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-gradient-to-r from-pink-600 to-rose-500 text-white shadow-md shadow-pink-900/30'
+                : 'text-slate-300 hover:text-white hover:bg-white/5'
             }`}
           >
             👨‍👩‍👧 Parent-Managed
           </button>
           <button
             onClick={() => handleRoleChange("joint")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs md:text-sm font-extrabold transition-all duration-200 ${
               currentUser.account_type === 'joint'
-                ? 'bg-white text-slate-900 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-gradient-to-r from-pink-600 to-rose-500 text-white shadow-md shadow-pink-900/30'
+                : 'text-slate-300 hover:text-white hover:bg-white/5'
             }`}
           >
             👥 Jointly-Managed
@@ -449,68 +480,71 @@ export default function App() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsAdminOpen(!isAdminOpen)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold border flex items-center gap-2 transition-all ${
+            className={`px-5 py-2.5 rounded-xl text-xs md:text-sm font-bold border transition-all duration-200 flex items-center gap-2 ${
               isAdminOpen
-                ? 'bg-red-50 text-red-700 border-red-200'
-                : 'bg-slate-900 text-white border-slate-900 hover:bg-slate-800 shadow-sm'
+                ? 'bg-rose-950/50 text-rose-300 border-rose-800'
+                : 'bg-slate-100 text-slate-900 border-transparent hover:bg-white hover:scale-[1.02] shadow-md'
             }`}
           >
             <ShieldAlert className="w-4 h-4" />
-            {isAdminOpen ? "Close Admin Dashboard" : "Safety/Admin Panel"}
+            {isAdminOpen ? "Close Safety Dashboard" : "Safety/Admin Panel"}
           </button>
         </div>
       </header>
 
       {/* ADMIN PANEL OVERLAY */}
       {isAdminOpen && (
-        <div className="bg-red-50/70 border-b-2 border-red-200 p-6 shadow-inner transition-all animate-fadeIn">
+        <div className="bg-rose-950/30 border-b border-rose-800/40 p-6 md:p-8 shadow-inner transition-all animate-fadeIn">
           <div className="max-w-7xl mx-auto">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <ShieldCheck className="text-red-600 w-5 h-5" />
-                Trust & Safety Admin Moderation Center
-              </h2>
-              <span className="text-xs bg-red-100 text-red-800 font-bold px-2.5 py-1 rounded-full">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+              <div>
+                <h2 className="text-xl md:text-2xl font-black text-white flex items-center gap-2.5">
+                  <ShieldCheck className="text-rose-500 w-6 h-6" />
+                  Trust & Safety Admin Moderation Center
+                </h2>
+                <p className="text-sm text-slate-400 mt-1">Real-time DPDP consent records, liveness checks, and conversational fraud scans.</p>
+              </div>
+              <span className="text-xs bg-rose-500/20 text-rose-300 font-extrabold px-3.5 py-1.5 rounded-full border border-rose-500/30 uppercase tracking-widest">
                 Active Session Logs & Fraud Scanners
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-white p-4 rounded-xl border border-red-100 shadow-sm">
-                <span className="text-xs text-slate-500 font-medium uppercase tracking-wider block">Total Active Profiles</span>
-                <span className="text-2xl font-black text-slate-800">{profiles.length + 1} Profiles</span>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-6">
+              <div className="bg-slate-900/80 p-5 rounded-2xl border border-white/5 shadow-lg">
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block mb-1">Total Active Profiles</span>
+                <span className="text-2xl font-black text-white">{profiles.length + 1} Profiles</span>
               </div>
-              <div className="bg-white p-4 rounded-xl border border-red-100 shadow-sm">
-                <span className="text-xs text-slate-500 font-medium uppercase tracking-wider block">Identity Verified</span>
-                <span className="text-2xl font-black text-emerald-600">80% Users</span>
+              <div className="bg-slate-900/80 p-5 rounded-2xl border border-white/5 shadow-lg">
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block mb-1">Identity Verified</span>
+                <span className="text-2xl font-black text-emerald-400">80% Users</span>
               </div>
-              <div className="bg-white p-4 rounded-xl border border-red-100 shadow-sm">
-                <span className="text-xs text-slate-500 font-medium uppercase tracking-wider block">AI Photo Matches</span>
-                <span className="text-2xl font-black text-blue-600">99.2% Accurate</span>
+              <div className="bg-slate-900/80 p-5 rounded-2xl border border-white/5 shadow-lg">
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block mb-1">AI Photo Matches</span>
+                <span className="text-2xl font-black text-blue-400">99.2% Accurate</span>
               </div>
-              <div className="bg-white p-4 rounded-xl border border-red-100 shadow-sm">
-                <span className="text-xs text-slate-500 font-medium uppercase tracking-wider block">System Alerts</span>
-                <span className="text-2xl font-black text-rose-600">{reports.filter(r => r.status === 'pending').length} Action Needed</span>
+              <div className="bg-slate-900/80 p-5 rounded-2xl border border-white/5 shadow-lg">
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block mb-1">System Alerts</span>
+                <span className="text-2xl font-black text-rose-400">{reports.filter(r => r.status === 'pending').length} Action Needed</span>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="bg-slate-900 text-white px-4 py-3 text-xs font-bold tracking-wider uppercase">
+            <div className="bg-slate-900/95 rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+              <div className="bg-slate-950 text-slate-200 px-5 py-4 text-xs font-bold tracking-wider uppercase border-b border-white/5">
                 Active Reports and Spammer Flags Queue
               </div>
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-white/5">
                 {reports.map((report) => (
-                  <div key={report.id} className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm">
+                  <div key={report.id} className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm">
                     <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-slate-900">Reporter: {report.reporter}</span>
-                        <span className="text-slate-400">|</span>
-                        <span className="text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-full text-xs">Reported: {report.reported}</span>
+                      <div className="flex items-center gap-3 mb-1.5">
+                        <span className="font-extrabold text-white text-base">Reporter: {report.reporter}</span>
+                        <span className="text-slate-600">|</span>
+                        <span className="text-rose-400 font-bold bg-rose-500/10 border border-rose-500/20 px-2.5 py-0.5 rounded-full text-xs">Reported: {report.reported}</span>
                       </div>
-                      <p className="text-slate-600 text-xs italic">Reason: "{report.reason}"</p>
-                      <span className="text-xs text-slate-400 block mt-1">Logged: {report.date}</span>
+                      <p className="text-slate-300 text-sm italic">Reason: "{report.reason}"</p>
+                      <span className="text-xs text-slate-500 block mt-2">Logged timestamp: {report.date}</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 shrink-0">
                       {report.status === "pending" ? (
                         <>
                           <button
@@ -523,20 +557,20 @@ export default function App() {
                               }
                               handleResolveReport(report.id);
                             }}
-                            className="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-red-700"
+                            className="bg-rose-600 text-white text-xs md:text-sm font-bold px-4 py-2 rounded-xl hover:bg-rose-700 transition-all duration-150"
                           >
                             Ban Accused Account
                           </button>
                           <button
                             onClick={() => handleResolveReport(report.id)}
-                            className="bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-slate-200"
+                            className="bg-slate-800 text-slate-300 text-xs md:text-sm font-bold px-4 py-2 rounded-xl hover:bg-slate-700 transition-all duration-150"
                           >
                             Dismiss/Resolve
                           </button>
                         </>
                       ) : (
-                        <span className="text-xs text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-full flex items-center gap-1">
-                          <CheckCircle className="w-3.5 h-3.5" /> Resolved & Safe
+                        <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                          <CheckCircle className="w-4 h-4" /> Resolved & Safe
                         </span>
                       )}
                     </div>
@@ -549,56 +583,56 @@ export default function App() {
       )}
 
       {/* MAIN LAYOUT CONTAINER */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
 
         {/* LEFT COLUMN: LOGGED IN PROFILE & TRUST VERIFICATION WIZARD */}
-        <section className="lg:col-span-4 flex flex-col gap-6">
+        <section className="lg:col-span-4 flex flex-col gap-8 animate-fadeIn">
 
           {/* USER PROFILE CARD */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden p-6 relative">
+          <div className="bg-slate-900/75 border border-white/10 rounded-3xl shadow-xl overflow-hidden p-6 md:p-8 relative backdrop-blur-md">
 
             {/* Top Badge: Mode */}
-            <div className="absolute top-4 right-4 flex flex-col gap-1.5 items-end">
-              <span className={`text-xs font-bold px-3 py-1 rounded-full ${
+            <div className="absolute top-6 right-6 flex flex-col gap-1.5 items-end">
+              <span className={`text-xs font-extrabold px-3.5 py-1.5 rounded-full ${
                 currentUser.profile_mode === 'joint'
-                  ? 'bg-indigo-50 text-indigo-700 border border-indigo-100'
+                  ? 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/20'
                   : currentUser.profile_mode === 'parent'
-                    ? 'bg-amber-50 text-amber-700 border border-amber-100'
-                    : 'bg-pink-50 text-pink-700 border border-pink-100'
+                    ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20'
+                    : 'bg-pink-500/10 text-pink-300 border border-pink-500/20'
               }`}>
                 {currentUser.profile_mode === 'joint' ? "👥 Joint Profile" : currentUser.profile_mode === 'parent' ? "👨‍👩‍👧 Parent Managed" : "👤 Self Managed"}
               </span>
               {currentUser.managed_by && (
-                <span className="text-[10px] text-slate-400 font-medium italic">
+                <span className="text-xs text-slate-400 font-semibold italic">
                   By {currentUser.managed_by}
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-4 mb-4 mt-2">
-              <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-300 text-pink-600 font-bold text-2xl shadow-inner">
+            <div className="flex items-center gap-5 mb-6 mt-3">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-pink-500 to-rose-500 flex items-center justify-center border-2 border-white/10 text-white font-black text-3xl shadow-lg shrink-0">
                 {currentUser.name.split(" ").map(n => n[0]).join("")}
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-900">{currentUser.name}</h3>
-                <p className="text-xs text-slate-500">{currentUser.age} yrs • {currentUser.height} • {currentUser.location}</p>
+                <h3 className="text-xl md:text-2xl font-black text-white">{currentUser.name}</h3>
+                <p className="text-sm text-slate-300 font-medium mt-0.5">{currentUser.age} yrs • {currentUser.height} • {currentUser.location}</p>
 
-                <div className="flex items-center gap-2 mt-1.5">
+                <div className="flex flex-wrap items-center gap-2 mt-2.5">
                   {currentUser.is_verified_identity ? (
-                    <span className="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-100 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <span className="text-[11px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1">
                       <ShieldCheck className="w-3.5 h-3.5" /> Identity Verified
                     </span>
                   ) : (
-                    <span className="text-[11px] bg-slate-100 text-slate-500 font-bold px-2 py-0.5 rounded-full">
+                    <span className="text-[11px] bg-white/5 text-slate-400 border border-white/5 font-extrabold px-2.5 py-0.5 rounded-full">
                       ID Unverified
                     </span>
                   )}
                   {currentUser.is_verified_photo ? (
-                    <span className="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-100 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <span className="text-[11px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1">
                       <CheckCircle className="w-3.5 h-3.5" /> Photo Verified
                     </span>
                   ) : (
-                    <span className="text-[11px] bg-slate-100 text-slate-500 font-bold px-2 py-0.5 rounded-full">
+                    <span className="text-[11px] bg-white/5 text-slate-400 border border-white/5 font-extrabold px-2.5 py-0.5 rounded-full">
                       Photo Unverified
                     </span>
                   )}
@@ -606,38 +640,50 @@ export default function App() {
               </div>
             </div>
 
-            <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-100 text-xs mb-4">
-              <div className="grid grid-cols-2 gap-y-2">
-                <div><span className="text-slate-400 block font-medium">Religion/Caste</span><span className="font-semibold text-slate-800">{currentUser.religion} ({currentUser.community})</span></div>
-                <div><span className="text-slate-400 block font-medium">Mother Tongue</span><span className="font-semibold text-slate-800">{currentUser.mother_tongue}</span></div>
-                <div><span className="text-slate-400 block font-medium">Profession</span><span className="font-semibold text-slate-800">{currentUser.profession}</span></div>
-                <div><span className="text-slate-400 block font-medium">Private Income</span><span className="font-semibold text-pink-600">{currentUser.income_range}</span></div>
+            <div className="space-y-4 bg-slate-950/60 p-5 rounded-2xl border border-white/5 text-sm mb-6 leading-relaxed">
+              <div className="grid grid-cols-2 gap-y-3 gap-x-2">
+                <div>
+                  <span className="text-xs text-slate-400 block font-semibold uppercase tracking-wider mb-0.5">Religion/Caste</span>
+                  <span className="font-bold text-white">{currentUser.religion} ({currentUser.community})</span>
+                </div>
+                <div>
+                  <span className="text-xs text-slate-400 block font-semibold uppercase tracking-wider mb-0.5">Mother Tongue</span>
+                  <span className="font-bold text-white">{currentUser.mother_tongue}</span>
+                </div>
+                <div>
+                  <span className="text-xs text-slate-400 block font-semibold uppercase tracking-wider mb-0.5">Profession</span>
+                  <span className="font-bold text-white">{currentUser.profession}</span>
+                </div>
+                <div>
+                  <span className="text-xs text-slate-400 block font-semibold uppercase tracking-wider mb-0.5">Private Income</span>
+                  <span className="font-bold text-pink-400">{currentUser.income_range}</span>
+                </div>
               </div>
-              <div className="pt-2 border-t border-slate-100">
-                <span className="text-slate-400 font-medium block mb-0.5">About Me:</span>
-                <p className="text-slate-600 italic line-clamp-2">"{currentUser.about_me}"</p>
+              <div className="pt-3.5 border-t border-white/5">
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block mb-1">About Me:</span>
+                <p className="text-slate-300 italic leading-relaxed">"{currentUser.about_me}"</p>
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               <button
                 onClick={() => {
                   setOnboardingForm({ ...currentUser });
                   setOnboardingStep(1);
                   setIsOnboardingOpen(true);
                 }}
-                className="w-full bg-slate-900 text-white hover:bg-slate-800 text-xs font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-sm"
+                className="w-full bg-white text-slate-950 hover:bg-slate-200 text-sm font-extrabold py-3 px-5 rounded-xl flex items-center justify-center gap-2 transition-all duration-150 shadow-md"
               >
-                <Settings className="w-4 h-4" />
+                <Settings className="w-4.5 h-4.5" />
                 Edit Profile (Progressive Flow)
               </button>
 
               {!currentUser.is_verified_identity && (
                 <button
                   onClick={triggerVerification}
-                  className="w-full bg-gradient-to-r from-pink-600 to-rose-500 text-white hover:from-pink-700 hover:to-rose-600 text-xs font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-sm shadow-pink-100"
+                  className="w-full bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-500 hover:to-rose-400 text-white text-sm font-extrabold py-3 px-5 rounded-xl flex items-center justify-center gap-2 transition-all duration-150 shadow-lg shadow-pink-900/30"
                 >
-                  <ShieldCheck className="w-4 h-4" />
+                  <ShieldCheck className="w-4.5 h-4.5" />
                   Verify Identity & Photo Now
                 </button>
               )}
@@ -646,19 +692,19 @@ export default function App() {
 
           {/* PARENT DASHBOARD & INVITATION SYSTEM */}
           {currentUser.account_type === 'parent' && (
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50/50 rounded-2xl border border-amber-100 p-6 shadow-sm">
-              <h4 className="text-sm font-bold text-slate-800 flex items-center gap-2 mb-2">
-                <Users className="text-amber-600 w-5 h-5" />
+            <div className="bg-gradient-to-br from-amber-950/20 to-orange-950/10 rounded-3xl border border-amber-900/30 p-6 md:p-8 shadow-xl backdrop-blur-md">
+              <h4 className="text-base font-black text-amber-200 flex items-center gap-2 mb-3">
+                <Users className="text-amber-400 w-5 h-5" />
                 Parent & Family Dashboard
               </h4>
-              <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+              <p className="text-sm text-slate-300 mb-5 leading-relaxed">
                 As a parent, you can create a profile for your son/daughter and configure preferences. To co-manage seamlessly and avoid split accounts, send them a digital invitation.
               </p>
 
               {parentInviteStatus === 'idle' ? (
-                <form onSubmit={handleParentInvite} className="space-y-3">
+                <form onSubmit={handleParentInvite} className="space-y-4">
                   <div>
-                    <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">
+                    <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">
                       Son / Daughter's Email Address
                     </label>
                     <input
@@ -667,45 +713,45 @@ export default function App() {
                       placeholder="e.g. child@email.com"
                       value={parentInviteInput}
                       onChange={(e) => setParentInviteInput(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-amber-200 text-xs focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-white/10 text-sm text-white focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder:text-slate-500"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-4 rounded-xl transition-all shadow-sm"
+                    className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-sm font-extrabold py-3 px-5 rounded-xl transition-all duration-150 shadow-md"
                   >
                     Send Co-Management Invite
                   </button>
                 </form>
               ) : parentInviteStatus === 'invited' ? (
-                <div className="bg-amber-100/60 p-3.5 rounded-xl border border-amber-200 text-xs">
-                  <div className="flex items-center gap-2 text-amber-800 font-bold mb-1">
-                    <Clock className="w-4 h-4 animate-spin" />
+                <div className="bg-amber-950/30 p-4 rounded-2xl border border-amber-500/20 text-sm">
+                  <div className="flex items-center gap-2 text-amber-300 font-extrabold mb-1.5">
+                    <Clock className="w-4.5 h-4.5 animate-spin" />
                     Invite Pending Acceptance...
                   </div>
-                  <p className="text-slate-600 text-[11px]">
-                    We emailed your child at <strong className="text-slate-800">{parentInviteInput}</strong>. They are reviewing the invitation to take ownership or co-manage.
+                  <p className="text-slate-300 leading-relaxed text-xs">
+                    We emailed your child at <strong className="text-slate-100">{parentInviteInput}</strong>. They are reviewing the invitation to take ownership or co-manage.
                   </p>
                 </div>
               ) : (
-                <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 text-xs">
-                  <div className="flex items-center gap-2 text-emerald-800 font-bold mb-1">
-                    <CheckSquare className="w-4 h-4 text-emerald-600" />
+                <div className="bg-emerald-950/20 p-5 rounded-2xl border border-emerald-500/20 text-sm">
+                  <div className="flex items-center gap-2 text-emerald-300 font-extrabold mb-1.5">
+                    <CheckSquare className="w-5 h-5 text-emerald-400" />
                     Invite Accepted!
                   </div>
-                  <p className="text-slate-600 text-[11px] mb-3">
+                  <p className="text-slate-300 leading-relaxed text-xs mb-4">
                     Your child has approved the request. Both of you are now in <strong>Joint Management Mode</strong>.
                   </p>
-                  <div className="flex items-center justify-between p-2.5 bg-white rounded-lg border border-emerald-100">
-                    <span className="font-semibold text-slate-700 text-[11px]">Allow Child to Co-Manage</span>
+                  <div className="flex items-center justify-between p-3 bg-slate-950/60 rounded-xl border border-white/5">
+                    <span className="font-semibold text-slate-300 text-xs">Allow Child to Co-Manage</span>
                     <button
                       onClick={() => setCoManageToggle(!coManageToggle)}
-                      className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                        coManageToggle ? 'bg-emerald-600' : 'bg-slate-200'
+                      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                        coManageToggle ? 'bg-emerald-500' : 'bg-white/10'
                       }`}
                     >
-                      <span className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                        coManageToggle ? 'translate-x-4' : 'translate-x-0'
+                      <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                        coManageToggle ? 'translate-x-5' : 'translate-x-0'
                       }`} />
                     </button>
                   </div>
@@ -716,25 +762,25 @@ export default function App() {
 
           {/* DYNAMIC TRUST VERIFICATION POPUP/STEPPER */}
           {verifyStep !== "idle" && (
-            <div className="bg-white rounded-2xl border-2 border-pink-100 p-6 shadow-md relative animate-fadeIn">
+            <div className="bg-slate-900 border-2 border-pink-500/20 rounded-3xl p-6 md:p-8 shadow-2xl relative animate-fadeIn">
               <button
                 onClick={() => setVerifyStep("idle")}
-                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
+                className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors"
               >
-                <X className="w-4.5 h-4.5" />
+                <X className="w-5 h-5" />
               </button>
 
-              <h4 className="text-sm font-bold text-slate-900 flex items-center gap-1.5 mb-2">
-                <ShieldCheck className="text-pink-600 w-5 h-5" />
+              <h4 className="text-base font-black text-white flex items-center gap-2 mb-3">
+                <ShieldCheck className="text-pink-500 w-5.5 h-5.5" />
                 Matrimonial Trust & Safety Verification
               </h4>
 
               {verifyStep === "choosing" && (
-                <div className="space-y-4">
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                <div className="space-y-5">
+                  <p className="text-sm text-slate-300 leading-relaxed">
                     Choose an official ID document. We use high-precision liveness detection to match your photo with your uploaded ID. Your ID document is <strong>never</strong> shown to matches.
                   </p>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2.5">
                     {["Aadhaar Card", "PAN Card", "Passport", "Driving Licence"].map(doc => (
                       <button
                         key={doc}
@@ -742,7 +788,7 @@ export default function App() {
                           setUploadedDocType(doc);
                           setVerifyStep("doc_upload");
                         }}
-                        className="p-3 text-xs border border-slate-200 hover:border-pink-300 hover:bg-pink-50 rounded-xl text-center font-bold text-slate-700 transition-all"
+                        className="p-3.5 text-xs md:text-sm border border-white/10 hover:border-pink-500/40 hover:bg-pink-500/10 rounded-xl text-center font-extrabold text-slate-200 transition-all duration-150"
                       >
                         {doc}
                       </button>
@@ -753,69 +799,69 @@ export default function App() {
 
               {verifyStep === "doc_upload" && (
                 <div className="space-y-4">
-                  <div className="bg-slate-50 p-3 rounded-xl border text-xs text-slate-600 flex items-start gap-2">
-                    <Info className="text-blue-500 w-4 h-4 shrink-0 mt-0.5" />
+                  <div className="bg-slate-950 p-4 rounded-xl border border-white/5 text-xs md:text-sm text-slate-300 flex items-start gap-2.5">
+                    <Info className="text-blue-400 w-5 h-5 shrink-0 mt-0.5" />
                     <span>Selected: <strong>{uploadedDocType}</strong>. Upload a clear picture of your ID card.</span>
                   </div>
-                  <div className="border-2 border-dashed border-slate-200 hover:border-pink-300 rounded-xl p-6 text-center transition-all cursor-pointer relative">
+                  <div className="border-2 border-dashed border-white/10 hover:border-pink-500/30 rounded-xl p-8 text-center transition-all cursor-pointer relative bg-slate-950/40">
                     <input
                       type="file"
                       accept="image/*"
                       onChange={handleDocUpload}
                       className="absolute inset-0 opacity-0 cursor-pointer"
                     />
-                    <Upload className="mx-auto w-8 h-8 text-slate-400 mb-2" />
-                    <span className="text-xs font-bold text-slate-700 block">Click to Upload Document Photo</span>
-                    <span className="text-[10px] text-slate-400">Supports JPG, PNG up to 5MB</span>
+                    <Upload className="mx-auto w-10 h-10 text-slate-400 mb-3" />
+                    <span className="text-sm font-extrabold text-slate-200 block">Click to Upload Document Photo</span>
+                    <span className="text-xs text-slate-400 mt-1 block">Supports JPG, PNG up to 5MB</span>
                   </div>
                   <div className="flex justify-between">
-                    <button onClick={() => setVerifyStep("choosing")} className="text-xs text-slate-500 hover:underline">Back</button>
+                    <button onClick={() => setVerifyStep("choosing")} className="text-xs text-slate-400 hover:text-white underline">Back</button>
                   </div>
                 </div>
               )}
 
               {verifyStep === "selfie_upload" && (
                 <div className="space-y-4">
-                  <div className="bg-slate-50 p-3 rounded-xl border text-xs text-slate-600 flex items-start gap-2">
-                    <Info className="text-blue-500 w-4 h-4 shrink-0 mt-0.5" />
-                    <span>Document received: <strong className="text-slate-800">{uploadedDocFile}</strong>. Next, perform selfie liveness matching.</span>
+                  <div className="bg-slate-950 p-4 rounded-xl border border-white/5 text-xs md:text-sm text-slate-300 flex items-start gap-2.5">
+                    <Info className="text-blue-400 w-5 h-5 shrink-0 mt-0.5" />
+                    <span>Document received: <strong className="text-slate-100">{uploadedDocFile}</strong>. Next, perform selfie liveness matching.</span>
                   </div>
-                  <div className="border-2 border-dashed border-slate-200 hover:border-pink-300 rounded-xl p-6 text-center transition-all cursor-pointer relative">
+                  <div className="border-2 border-dashed border-white/10 hover:border-pink-500/30 rounded-xl p-8 text-center transition-all cursor-pointer relative bg-slate-950/40">
                     <input
                       type="file"
                       accept="image/*"
                       onChange={handleSelfieUpload}
                       className="absolute inset-0 opacity-0 cursor-pointer"
                     />
-                    <User className="mx-auto w-8 h-8 text-slate-400 mb-2" />
-                    <span className="text-xs font-bold text-slate-700 block">Click to Upload Live Selfie</span>
-                    <span className="text-[10px] text-slate-400">Please align your face clearly in good lighting</span>
+                    <User className="mx-auto w-10 h-10 text-slate-400 mb-3" />
+                    <span className="text-sm font-extrabold text-slate-200 block">Click to Upload Live Selfie</span>
+                    <span className="text-xs text-slate-400 mt-1 block">Please align your face clearly in good lighting</span>
                   </div>
                 </div>
               )}
 
               {verifyStep === "verifying" && (
-                <div className="text-center py-6 space-y-4">
-                  <div className="w-12 h-12 rounded-full border-4 border-pink-500 border-t-transparent animate-spin mx-auto"></div>
+                <div className="text-center py-8 space-y-4">
+                  <div className="w-14 h-14 rounded-full border-4 border-pink-500 border-t-transparent animate-spin mx-auto"></div>
                   <div>
-                    <h5 className="font-bold text-slate-800 text-xs">AI Selfie-to-ID Face Similarity Matcher</h5>
-                    <p className="text-[11px] text-slate-500">Executing mathematical 128-point face liveness analysis & safety lookup...</p>
+                    <h5 className="font-bold text-white text-sm">AI Selfie-to-ID Face Similarity Matcher</h5>
+                    <p className="text-xs text-slate-400 mt-1 leading-relaxed">Executing mathematical 128-point face liveness analysis & safety lookup...</p>
                   </div>
                 </div>
               )}
 
               {verifyStep === "completed" && (
-                <div className="text-center py-4 space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mx-auto text-emerald-600">
-                    <Check className="w-6 h-6 stroke-[3]" />
+                <div className="text-center py-6 space-y-4">
+                  <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto text-emerald-400">
+                    <Check className="w-8 h-8 stroke-[3]" />
                   </div>
                   <div>
-                    <h5 className="font-bold text-emerald-800 text-sm">Identity & Photos Verified!</h5>
-                    <p className="text-xs text-slate-500">Your profile is now marked with 🟢 Photo Verified and 🟢 Identity Verified badges.</p>
+                    <h5 className="font-bold text-emerald-300 text-base">Identity & Photos Verified!</h5>
+                    <p className="text-xs text-slate-400 mt-1 leading-relaxed">Your profile is now marked with 🟢 Photo Verified and 🟢 Identity Verified badges.</p>
                   </div>
                   <button
                     onClick={() => setVerifyStep("idle")}
-                    className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-1.5 px-4 rounded-xl"
+                    className="bg-white hover:bg-slate-200 text-slate-950 text-xs md:text-sm font-extrabold py-2 px-5 rounded-xl"
                   >
                     Great, thanks!
                   </button>
@@ -825,64 +871,64 @@ export default function App() {
           )}
 
           {/* EXPLAINABLE CLASSIFIED PREFERENCE DASHBOARD */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-            <h4 className="text-sm font-bold text-slate-950 flex items-center gap-1.5 mb-3">
-              <Settings className="text-pink-600 w-4.5 h-4.5" />
+          <div className="bg-slate-900/75 border border-white/10 rounded-3xl p-6 md:p-8 shadow-xl backdrop-blur-md">
+            <h4 className="text-base font-black text-white flex items-center gap-2 mb-4">
+              <Settings className="text-pink-500 w-5 h-5" />
               Your Classified Match Criteria
             </h4>
 
             <div className="space-y-4">
               {/* MUST HAVES */}
-              <div className="bg-rose-50/50 p-3.5 rounded-xl border border-rose-100">
-                <span className="text-[11px] font-black text-rose-700 uppercase tracking-wider block mb-2">
+              <div className="bg-rose-950/20 p-4 rounded-2xl border border-rose-500/20">
+                <span className="text-xs font-black text-rose-300 uppercase tracking-widest block mb-2.5">
                   📌 Must Have (Hard Filters)
                 </span>
-                <ul className="space-y-1.5 text-xs text-slate-700">
-                  <li className="flex items-center gap-1.5">
-                    <CheckSquare className="w-3.5 h-3.5 text-rose-500" />
-                    <span>Age Range: <strong className="font-semibold text-slate-900">{preferences.must_age_min} to {preferences.must_age_max}</strong></span>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  <li className="flex items-center gap-2.5">
+                    <CheckSquare className="w-4 h-4 text-rose-400 shrink-0" />
+                    <span>Age Range: <strong className="font-bold text-white">{preferences.must_age_min} to {preferences.must_age_max}</strong></span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <CheckSquare className="w-3.5 h-3.5 text-rose-500" />
-                    <span>Target Gender: <strong className="font-semibold text-slate-900">{preferences.must_genders.join(", ")}</strong></span>
+                  <li className="flex items-center gap-2.5">
+                    <CheckSquare className="w-4 h-4 text-rose-400 shrink-0" />
+                    <span>Target Gender: <strong className="font-bold text-white">{preferences.must_genders.join(", ")}</strong></span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <CheckSquare className="w-3.5 h-3.5 text-rose-500" />
-                    <span>Locations: <strong className="font-semibold text-slate-900">{preferences.must_locations.join(", ")}</strong></span>
+                  <li className="flex items-center gap-2.5">
+                    <CheckSquare className="w-4 h-4 text-rose-400 shrink-0" />
+                    <span>Locations: <strong className="font-bold text-white">{preferences.must_locations.join(", ")}</strong></span>
                   </li>
                 </ul>
               </div>
 
               {/* PREFERS */}
-              <div className="bg-blue-50/50 p-3.5 rounded-xl border border-blue-100">
-                <span className="text-[11px] font-black text-blue-700 uppercase tracking-wider block mb-2">
+              <div className="bg-blue-950/20 p-4 rounded-2xl border border-blue-500/20">
+                <span className="text-xs font-black text-blue-300 uppercase tracking-widest block mb-2.5">
                   ⭐ Prefer (Scoring Weight Boosts)
                 </span>
-                <ul className="space-y-1.5 text-xs text-slate-700">
-                  <li className="flex items-center gap-1.5">
-                    <Award className="w-3.5 h-3.5 text-blue-500" />
-                    <span>Education: <strong className="font-semibold text-slate-900">{preferences.prefer_education_level}</strong></span>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  <li className="flex items-center gap-2.5">
+                    <Award className="w-4 h-4 text-blue-400 shrink-0" />
+                    <span>Education: <strong className="font-bold text-white">{preferences.prefer_education_level}</strong></span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Award className="w-3.5 h-3.5 text-blue-500" />
-                    <span>Minimum Income: <strong className="font-semibold text-slate-900">₹{preferences.prefer_income_min} LPA+</strong></span>
+                  <li className="flex items-center gap-2.5">
+                    <Award className="w-4 h-4 text-blue-400 shrink-0" />
+                    <span>Minimum Income: <strong className="font-bold text-white">₹{preferences.prefer_income_min} LPA+</strong></span>
                   </li>
                 </ul>
               </div>
 
               {/* DEAL BREAKERS */}
-              <div className="bg-slate-100 p-3.5 rounded-xl border border-slate-200">
-                <span className="text-[11px] font-black text-slate-700 uppercase tracking-wider block mb-2">
+              <div className="bg-slate-950 p-4 rounded-2xl border border-white/10">
+                <span className="text-xs font-black text-slate-300 uppercase tracking-widest block mb-2.5">
                   🚫 Deal Breakers (Instant Exclusions)
                 </span>
-                <ul className="space-y-1.5 text-xs text-slate-700">
+                <ul className="space-y-2 text-sm text-slate-300">
                   <li className="flex items-center justify-between">
                     <span>Non-Smoker Only</span>
-                    <span className="text-[10px] bg-slate-900 text-white px-2 py-0.5 rounded-full font-bold">YES</span>
+                    <span className="text-xs bg-slate-100 text-slate-950 px-2.5 py-0.5 rounded-full font-black">YES</span>
                   </li>
                   <li className="flex items-center justify-between">
                     <span>Already Married</span>
-                    <span className="text-[10px] bg-slate-900 text-white px-2 py-0.5 rounded-full font-bold">NO WAY</span>
+                    <span className="text-xs bg-slate-100 text-slate-950 px-2.5 py-0.5 rounded-full font-black">NO WAY</span>
                   </li>
                 </ul>
               </div>
@@ -891,45 +937,45 @@ export default function App() {
         </section>
 
         {/* MIDDLE COLUMN: DISCOVER & AI RECOMMENDATION FEED */}
-        <section className="lg:col-span-5 flex flex-col gap-6">
+        <section className="lg:col-span-5 flex flex-col gap-8 animate-fadeIn">
 
           {/* ASK AI SEARCH FORM */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-pink-100 rounded-full blur-3xl -z-10 opacity-30"></div>
+          <div className="bg-slate-900/75 border border-white/10 rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden backdrop-blur-md">
+            <div className="absolute top-0 right-0 w-36 h-36 bg-pink-500/10 rounded-full blur-3xl -z-10"></div>
 
-            <h3 className="text-base font-bold text-slate-950 flex items-center gap-2 mb-1.5">
-              <Zap className="text-pink-600 w-5 h-5 fill-pink-50" />
+            <h3 className="text-lg md:text-xl font-black text-white flex items-center gap-2 mb-2">
+              <Zap className="text-pink-400 w-5 h-5 fill-pink-500/20" />
               "Ask AI" Intuitive Match Search
             </h3>
-            <p className="text-xs text-slate-500 mb-4 leading-relaxed">
+            <p className="text-sm text-slate-300 mb-5 leading-relaxed">
               Describe what you seek in normal conversational language. Our validator will translate it to a secure search schema safely.
             </p>
 
-            <form onSubmit={handleAiSearch} className="space-y-3">
+            <form onSubmit={handleAiSearch} className="space-y-4">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="e.g., Find someone who is 26-30, based in Bangalore, vegetarian and family-oriented"
                   value={nlQuery}
                   onChange={(e) => setNlQuery(e.target.value)}
-                  className="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all shadow-inner"
+                  className="w-full pl-5 pr-14 py-4 rounded-2xl bg-slate-950/80 border border-white/10 text-sm text-white focus:ring-2 focus:ring-pink-500 focus:outline-none transition-all duration-150 placeholder:text-slate-500"
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 top-2 p-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg transition-all"
+                  className="absolute right-2.5 top-2.5 p-2 bg-pink-600 hover:bg-pink-700 text-white rounded-xl transition-all duration-150"
                 >
                   {isAiSearching ? (
-                    <div className="w-4.5 h-4.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   ) : (
-                    <Search className="w-4.5 h-4.5" />
+                    <Search className="w-5 h-5" />
                   )}
                 </button>
               </div>
 
               {/* DEMONSTRATION OF SECURE PARSING SCHEMA */}
               {parsedSchema && (
-                <div className="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs space-y-2 font-mono relative animate-fadeIn">
-                  <div className="flex justify-between items-center text-[10px] text-pink-400 font-bold border-b border-slate-800 pb-1.5">
+                <div className="bg-slate-950 border border-white/10 text-slate-100 p-5 rounded-2xl text-xs space-y-3 font-mono relative animate-fadeIn">
+                  <div className="flex justify-between items-center text-xs text-pink-400 font-extrabold border-b border-white/5 pb-2">
                     <span>✓ SAFE LLM VALIDATED SEARCH SCHEMA</span>
                     <button
                       type="button"
@@ -942,10 +988,10 @@ export default function App() {
                       Clear Filter
                     </button>
                   </div>
-                  <pre className="text-[11px] overflow-x-auto whitespace-pre-wrap">
+                  <pre className="text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed text-slate-200">
                     {JSON.stringify(parsedSchema, null, 2)}
                   </pre>
-                  <p className="text-[10px] text-slate-400 italic">
+                  <p className="text-[11px] text-slate-400 italic leading-relaxed">
                     The structured JSON above strictly bounds the SQL generation layer, preventing malicious database query injection.
                   </p>
                 </div>
@@ -954,25 +1000,25 @@ export default function App() {
           </div>
 
           {/* AI-FIRST RECOMMENDED MATCHES FEED */}
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div className="flex justify-between items-center px-1">
-              <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                <Compass className="text-pink-600 w-4.5 h-4.5" />
+              <h4 className="text-base md:text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
+                <Compass className="text-pink-400 w-5 h-5" />
                 AI-Driven Matches ({rankedMatches.length})
               </h4>
-              <span className="text-xs text-slate-500">Sorted by Mutual Compatibility</span>
+              <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Sorted by Mutual Compatibility</span>
             </div>
 
             {rankedMatches.length === 0 ? (
-              <div className="bg-white p-12 text-center rounded-2xl border border-dashed border-slate-200">
-                <HelpCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-                <h5 className="font-bold text-slate-800 text-sm">No compatible matches found</h5>
-                <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
+              <div className="bg-slate-900/50 p-14 text-center rounded-3xl border border-dashed border-white/10">
+                <HelpCircle className="w-14 h-14 text-slate-500 mx-auto mb-4" />
+                <h5 className="font-extrabold text-white text-base">No compatible matches found</h5>
+                <p className="text-sm text-slate-400 max-w-sm mx-auto mt-2 leading-relaxed">
                   Try broadening your "Ask AI" search parameters or modifying your match constraints.
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-6">
                 {rankedMatches.map((profile) => {
                   const isLikedByMe = likes[profile.id] === 'accepted';
                   const hasPhotoAccess = !profile.photos[1] || photoRequestStatus[profile.id] === 'approved';
@@ -980,47 +1026,47 @@ export default function App() {
                   return (
                     <div
                       key={profile.id}
-                      className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 relative group"
+                      className="bg-slate-900/75 border border-white/10 rounded-3xl overflow-hidden hover:shadow-2xl hover:border-pink-500/20 transition-all duration-300 relative group backdrop-blur-md"
                     >
-                      {/* Compatibility Badge */}
-                      <div className="absolute top-4 right-4 bg-slate-900/90 text-white backdrop-blur-sm py-1.5 px-3 rounded-full flex items-center gap-1.5 z-10">
-                        <Heart className="w-3.5 h-3.5 fill-pink-500 text-pink-500" />
-                        <span className="font-bold text-xs">{profile.matchScore}% Compatibility</span>
+                      {/* Compatibility Badge with soft pulse glow */}
+                      <div className="absolute top-5 right-5 bg-slate-950/90 text-white backdrop-blur-xl border border-white/10 py-2 px-4 rounded-full flex items-center gap-2 z-10 shadow-lg">
+                        <Heart className="w-4 h-4 fill-pink-500 text-pink-500 animate-pulse" />
+                        <span className="font-black text-xs md:text-sm tracking-wide">{profile.matchScore}% Compatibility</span>
                       </div>
 
                       {/* Main picture area with gradient overlay */}
-                      <div className="relative h-48 bg-slate-200">
+                      <div className="relative h-64 bg-slate-950">
                         <img
                           src={profile.photos[0].url}
                           alt={profile.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
 
                         {/* Basic Overlay Info */}
-                        <div className="absolute bottom-4 left-4 text-white">
-                          <h4 className="text-lg font-bold flex items-center gap-1.5">
+                        <div className="absolute bottom-5 left-5 right-5">
+                          <h4 className="text-xl md:text-2xl font-black flex items-center gap-2 text-white">
                             {profile.name}
                             {profile.is_verified_identity && (
-                              <ShieldCheck className="w-4 h-4 text-emerald-400 fill-emerald-400/20" />
+                              <ShieldCheck className="w-5 h-5 text-emerald-400 fill-emerald-400/20 shrink-0" />
                             )}
                           </h4>
-                          <p className="text-xs text-slate-200 font-medium">
+                          <p className="text-sm text-slate-200 font-bold mt-1">
                             {profile.age} yrs • {profile.height} • {profile.profession}
                           </p>
                         </div>
                       </div>
 
                       {/* EXPLAINABLE AI SCORE CARD */}
-                      <div className="p-5 space-y-4">
-                        <div className="bg-pink-50/50 p-3.5 rounded-xl border border-pink-100/60">
-                          <span className="text-[10px] font-black text-pink-700 uppercase tracking-wider block mb-1">
+                      <div className="p-6 md:p-8 space-y-5">
+                        <div className="bg-pink-950/20 p-4.5 rounded-2xl border border-pink-500/20">
+                          <span className="text-xs font-black text-pink-300 uppercase tracking-widest block mb-2.5">
                             💡 Why We Recommend This Match
                           </span>
-                          <div className="grid grid-cols-1 gap-1">
+                          <div className="grid grid-cols-1 gap-1.5">
                             {profile.explainableReasons.map((reason, idx) => (
-                              <div key={idx} className="flex items-center gap-1.5 text-slate-700 text-xs font-semibold">
-                                <Check className="w-3.5 h-3.5 text-pink-600 stroke-[3.5]" />
+                              <div key={idx} className="flex items-center gap-2 text-slate-200 text-xs md:text-sm font-semibold">
+                                <Check className="w-4 h-4 text-pink-400 stroke-[3.5] shrink-0" />
                                 <span>{reason}</span>
                               </div>
                             ))}
@@ -1028,15 +1074,15 @@ export default function App() {
                         </div>
 
                         {/* Summary */}
-                        <p className="text-slate-600 text-xs italic line-clamp-2">
+                        <p className="text-slate-300 text-sm italic leading-relaxed">
                           "{profile.about_me}"
                         </p>
 
                         {/* Private Album Section */}
                         {profile.photos[1] && (
-                          <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100 flex items-center justify-between gap-2 text-xs">
-                            <div className="flex items-center gap-2 text-slate-700 font-semibold">
-                              <Lock className="w-4 h-4 text-slate-500" />
+                          <div className="bg-slate-950/80 p-4 rounded-2xl border border-white/5 flex items-center justify-between gap-3 text-sm">
+                            <div className="flex items-center gap-2 text-slate-200 font-bold">
+                              <Lock className="w-4.5 h-4.5 text-slate-400" />
                               <span>Private Photo Album 🔒</span>
                             </div>
 
@@ -1046,18 +1092,18 @@ export default function App() {
                                   setIsPhotoVisibleMap(prev => ({ ...prev, [profile.id]: !prev[profile.id] }));
                                   showToast("Viewing secure private photo.");
                                 }}
-                                className="bg-slate-900 text-white font-bold py-1 px-3 rounded-lg text-[10px]"
+                                className="bg-white text-slate-950 hover:bg-slate-200 font-black py-1.5 px-4 rounded-lg text-xs"
                               >
                                 {isPhotoVisibleMap[profile.id] ? "Hide Photo" : "View Photo"}
                               </button>
                             ) : photoRequestStatus[profile.id] === 'pending' ? (
-                              <span className="text-[10px] bg-slate-200 text-slate-600 font-bold py-1 px-2.5 rounded-full">
+                              <span className="text-xs bg-white/5 text-slate-400 font-extrabold py-1.5 px-3 rounded-full border border-white/5">
                                 Pending Access...
                               </span>
                             ) : (
                               <button
                                 onClick={() => handlePhotoRequest(profile.id, profile.name)}
-                                className="bg-pink-600 text-white hover:bg-pink-700 font-bold py-1 px-3 rounded-lg text-[10px]"
+                                className="bg-pink-600 hover:bg-pink-700 text-white font-black py-1.5 px-4 rounded-lg text-xs transition-all"
                               >
                                 Request Access
                               </button>
@@ -1067,23 +1113,23 @@ export default function App() {
 
                         {/* Private Photo Render */}
                         {isPhotoVisibleMap[profile.id] && photoRequestStatus[profile.id] === 'approved' && profile.photos[1] && (
-                          <div className="border border-slate-100 rounded-xl overflow-hidden shadow-inner p-2 bg-slate-50 relative">
-                            <span className="absolute top-4 left-4 bg-slate-900/90 text-white font-bold text-[9px] uppercase px-2 py-0.5 rounded-full">
+                          <div className="border border-white/10 rounded-2xl overflow-hidden shadow-inner p-2 bg-slate-950 relative">
+                            <span className="absolute top-5 left-5 bg-slate-950/90 border border-white/10 text-white font-black text-xs uppercase px-3 py-1 rounded-full">
                               Authorized Private Image
                             </span>
                             <img
                               src={profile.photos[1].url}
                               alt="Private Album"
-                              className="w-full h-40 object-cover rounded-lg"
+                              className="w-full h-52 object-cover rounded-xl"
                             />
                           </div>
                         )}
 
                         {/* ACTIONS FOOTER */}
-                        <div className="flex gap-2 pt-2">
+                        <div className="flex gap-3 pt-3">
                           <button
                             onClick={() => setSelectedProfile(profile)}
-                            className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold py-2 px-3 rounded-xl transition-all"
+                            className="flex-1 bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 text-xs md:text-sm font-extrabold py-3 px-4 rounded-xl transition-all duration-150"
                           >
                             Full Profile Details
                           </button>
@@ -1091,13 +1137,13 @@ export default function App() {
                           <button
                             onClick={() => handleLike(profile.id, profile.name)}
                             disabled={isLikedByMe}
-                            className={`flex-1 text-xs font-bold py-2 px-3 rounded-xl transition-all flex items-center justify-center gap-1 ${
+                            className={`flex-1 text-xs md:text-sm font-extrabold py-3 px-4 rounded-xl transition-all duration-150 flex items-center justify-center gap-1.5 ${
                               isLikedByMe
-                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                                : 'bg-pink-600 text-white hover:bg-pink-700 shadow-sm shadow-pink-100'
+                                ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/20'
+                                : 'bg-pink-600 text-white hover:bg-pink-700 shadow-lg shadow-pink-900/30'
                             }`}
                           >
-                            <Heart className={`w-4 h-4 ${isLikedByMe ? 'fill-emerald-700' : ''}`} />
+                            <Heart className={`w-4.5 h-4.5 ${isLikedByMe ? 'fill-emerald-400 text-emerald-400' : ''}`} />
                             {isLikedByMe ? "Matched & Connected" : "Express Interest"}
                           </button>
                         </div>
@@ -1111,38 +1157,38 @@ export default function App() {
         </section>
 
         {/* RIGHT COLUMN: CHAT HUB & SPAM BLOCK SYSTEM */}
-        <section className="lg:col-span-3 flex flex-col gap-6">
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col h-[600px]">
+        <section className="lg:col-span-3 flex flex-col gap-8 animate-fadeIn">
+          <div className="bg-slate-900/75 border border-white/10 rounded-3xl overflow-hidden flex flex-col h-[650px] backdrop-blur-md shadow-2xl">
 
             {/* Header */}
-            <div className="bg-slate-900 text-white p-4 flex items-center justify-between shrink-0">
-              <h3 className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
-                <MessageCircle className="w-4.5 h-4.5 text-pink-400" />
+            <div className="bg-slate-950 p-5 flex items-center justify-between shrink-0 border-b border-white/5">
+              <h3 className="font-extrabold text-xs md:text-sm uppercase tracking-wider flex items-center gap-2 text-white">
+                <MessageCircle className="w-5 h-5 text-pink-400" />
                 Matrimonial Chat Hub
               </h3>
-              <span className="text-[10px] bg-pink-600 text-white font-bold px-2 py-0.5 rounded-full">
-                Strict Acceptance Enabled
+              <span className="text-[10px] bg-pink-600 text-white font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                Strict Acceptance
               </span>
             </div>
 
             {/* Chat List Selection (only show mutual matches) */}
-            <div className="bg-slate-50 p-2.5 border-b border-slate-100 shrink-0">
-              <span className="text-[10px] text-slate-400 font-bold block mb-1">ACTIVE MUTUAL CONNECTIONS</span>
-              <div className="flex gap-2 overflow-x-auto">
+            <div className="bg-slate-950/40 p-4 border-b border-white/5 shrink-0">
+              <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block mb-2">ACTIVE MUTUAL CONNECTIONS</span>
+              <div className="flex gap-2.5 overflow-x-auto">
                 {profiles.filter(p => likes[p.id] === 'accepted').map(partner => (
                   <button
                     key={partner.id}
                     onClick={() => setActiveChatId(partner.id)}
-                    className={`flex items-center gap-2 p-1.5 rounded-xl transition-all border text-left shrink-0 ${
+                    className={`flex items-center gap-2.5 p-2 rounded-xl transition-all border text-left shrink-0 ${
                       activeChatId === partner.id
-                        ? 'bg-white border-pink-200 shadow-sm font-extrabold'
-                        : 'border-transparent text-slate-600 hover:bg-slate-100'
+                        ? 'bg-slate-850 border-pink-500/40 shadow-md font-extrabold text-white'
+                        : 'border-transparent text-slate-300 hover:bg-white/5'
                     }`}
                   >
-                    <div className="w-7 h-7 rounded-full bg-slate-200 overflow-hidden relative">
+                    <div className="w-8 h-8 rounded-full bg-slate-800 overflow-hidden relative shrink-0">
                       <img src={partner.photos[0].url} alt={partner.name} className="object-cover w-full h-full" />
                     </div>
-                    <span className="text-xs">{partner.name.split(" ")[0]}</span>
+                    <span className="text-xs md:text-sm">{partner.name.split(" ")[0]}</span>
                   </button>
                 ))}
               </div>
@@ -1150,24 +1196,24 @@ export default function App() {
 
             {/* Chat Messages Body */}
             {activeChatId ? (
-              <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50/50 flex flex-col justify-end">
+              <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-950/20 flex flex-col justify-end">
                 {chatMessages.map((msg) => (
                   <div
                     key={msg.id}
-                    className={`max-w-[85%] rounded-2xl p-3 text-xs shadow-sm ${
+                    className={`max-w-[85%] rounded-2xl p-4 text-xs md:text-sm shadow-md leading-relaxed ${
                       msg.sender === 'You'
-                        ? 'bg-slate-900 text-white ml-auto rounded-tr-none'
-                        : 'bg-white text-slate-800 rounded-tl-none border border-slate-100'
+                        ? 'bg-slate-100 text-slate-950 ml-auto rounded-tr-none'
+                        : 'bg-slate-800 text-slate-100 rounded-tl-none border border-white/5'
                     }`}
                   >
-                    <div className="flex justify-between items-center gap-2 mb-1">
-                      <span className="font-black text-[10px]">{msg.sender}</span>
-                      <span className="text-[9px] opacity-60">{msg.time}</span>
+                    <div className="flex justify-between items-center gap-3 mb-1.5">
+                      <span className="font-extrabold text-xs">{msg.sender}</span>
+                      <span className="text-[10px] opacity-60 font-semibold">{msg.time}</span>
                     </div>
-                    <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                    <p className="whitespace-pre-wrap">{msg.content}</p>
 
                     {msg.flagged && (
-                      <span className="text-[9px] text-yellow-400 font-bold bg-slate-800/80 px-2 py-0.5 rounded-full block mt-1 text-center">
+                      <span className="text-[10px] text-yellow-300 font-bold bg-slate-950 border border-yellow-500/20 px-2.5 py-1 rounded-full block mt-2 text-center">
                         ⚠️ SYSTEM FLAG: Financial Terms Detected
                       </span>
                     )}
@@ -1176,35 +1222,35 @@ export default function App() {
 
                 {/* Simulated Warning Alert */}
                 {spamAlert && (
-                  <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 text-rose-800 text-[11px] font-semibold flex items-start gap-1.5">
-                    <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                  <div className="bg-rose-950/50 border-2 border-rose-800/40 rounded-2xl p-4 text-rose-200 text-xs md:text-sm font-semibold flex items-start gap-2.5">
+                    <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
                     <p>{spamAlert}</p>
                   </div>
                 )}
               </div>
             ) : (
               <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-                <Heart className="w-10 h-10 text-pink-300 mb-2" />
-                <h5 className="font-bold text-slate-800 text-xs">No active chat selected</h5>
-                <p className="text-[11px] text-slate-400">Match with a candidate first to begin secure messaging.</p>
+                <Heart className="w-12 h-12 text-pink-500/20 mb-3" />
+                <h5 className="font-bold text-white text-sm">No active chat selected</h5>
+                <p className="text-xs text-slate-400 mt-1 max-w-xs leading-relaxed">Match with a candidate first to begin secure messaging.</p>
               </div>
             )}
 
             {/* Chat Footer Input */}
             {activeChatId && (
-              <form onSubmit={handleSendMessage} className="p-3 border-t border-slate-100 bg-white flex gap-2 shrink-0">
+              <form onSubmit={handleSendMessage} className="p-4 border-t border-white/5 bg-slate-950 flex gap-2.5 shrink-0">
                 <input
                   type="text"
-                  placeholder="Type a secure message... (Try typing 'send money')"
+                  placeholder="Type a secure message..."
                   value={currentMessageInput}
                   onChange={(e) => setCurrentMessageInput(e.target.value)}
-                  className="flex-1 px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500 focus:outline-none"
+                  className="flex-1 px-4 py-3 bg-slate-900 border border-white/10 rounded-xl text-xs md:text-sm text-white focus:ring-1 focus:ring-pink-500 focus:outline-none placeholder:text-slate-500"
                 />
                 <button
                   type="submit"
-                  className="bg-slate-900 hover:bg-slate-800 text-white p-2 rounded-xl"
+                  className="bg-pink-600 hover:bg-pink-700 text-white p-3 rounded-xl transition-all duration-150 shrink-0"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-4.5 h-4.5" />
                 </button>
               </form>
             )}
@@ -1214,11 +1260,11 @@ export default function App() {
 
       {/* FULL PROFILE DETAIL MODAL */}
       {selectedProfile && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100 p-6 relative animate-fadeIn">
+        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-white/10 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-6 md:p-8 relative animate-fadeIn">
             <button
               onClick={() => setSelectedProfile(null)}
-              className="absolute top-4 right-4 bg-slate-100 text-slate-500 hover:text-slate-800 p-1.5 rounded-full transition-all"
+              className="absolute top-6 right-6 bg-white/5 text-slate-300 hover:text-white p-2 rounded-full transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -1228,86 +1274,85 @@ export default function App() {
                 <img
                   src={selectedProfile.photos[0].url}
                   alt={selectedProfile.name}
-                  className="w-full h-48 object-cover rounded-2xl shadow-sm"
+                  className="w-full h-56 object-cover rounded-2xl shadow-md"
                 />
-                <div className="flex gap-1.5 mt-2">
-                  <span className="text-[10px] bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded-full">
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  <span className="text-xs bg-white/5 text-slate-300 border border-white/5 font-extrabold px-3 py-1 rounded-full">
                     {selectedProfile.gender}
                   </span>
-                  <span className="text-[10px] bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded-full">
+                  <span className="text-xs bg-white/5 text-slate-300 border border-white/5 font-extrabold px-3 py-1 rounded-full">
                     {selectedProfile.marital_status}
                   </span>
                 </div>
               </div>
 
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 space-y-4">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-950 flex items-center gap-1.5">
+                  <h3 className="text-2xl md:text-3xl font-black text-white flex items-center gap-2">
                     {selectedProfile.name}
                     {selectedProfile.is_verified_identity && (
-                      <ShieldCheck className="w-5 h-5 text-emerald-500 fill-emerald-500/20" />
+                      <ShieldCheck className="w-6 h-6 text-emerald-400 fill-emerald-400/10" />
                     )}
                   </h3>
-                  <p className="text-xs text-slate-500">{selectedProfile.location} • {selectedProfile.age} yrs • {selectedProfile.height}</p>
+                  <p className="text-sm md:text-base text-slate-300 font-semibold mt-1">{selectedProfile.location} • {selectedProfile.age} yrs • {selectedProfile.height}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                    <span className="text-slate-400 block text-[10px] font-medium">Income Level</span>
-                    <span className="font-bold text-pink-600 text-xs">{selectedProfile.income_range}</span>
+                <div className="grid grid-cols-2 gap-3.5 text-sm">
+                  <div className="bg-slate-950 p-3.5 rounded-xl border border-white/5">
+                    <span className="text-slate-400 block text-xs font-bold uppercase tracking-wider mb-0.5">Income Level</span>
+                    <span className="font-extrabold text-pink-400 text-sm">{selectedProfile.income_range}</span>
                   </div>
-                  <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                    <span className="text-slate-400 block text-[10px] font-medium">Education</span>
-                    <span className="font-bold text-slate-800 text-xs">{selectedProfile.education_level}</span>
+                  <div className="bg-slate-950 p-3.5 rounded-xl border border-white/5">
+                    <span className="text-slate-400 block text-xs font-bold uppercase tracking-wider mb-0.5">Education</span>
+                    <span className="font-extrabold text-white text-sm">{selectedProfile.education_level}</span>
                   </div>
-                  <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                    <span className="text-slate-400 block text-[10px] font-medium">Profession</span>
-                    <span className="font-bold text-slate-800 text-xs">{selectedProfile.profession}</span>
+                  <div className="bg-slate-950 p-3.5 rounded-xl border border-white/5">
+                    <span className="text-slate-400 block text-xs font-bold uppercase tracking-wider mb-0.5">Profession</span>
+                    <span className="font-extrabold text-white text-sm">{selectedProfile.profession}</span>
                   </div>
-                  <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                    <span className="text-slate-400 block text-[10px] font-medium">Religion / Caste</span>
-                    <span className="font-bold text-slate-800 text-xs">{selectedProfile.religion} ({selectedProfile.community})</span>
+                  <div className="bg-slate-950 p-3.5 rounded-xl border border-white/5">
+                    <span className="text-slate-400 block text-xs font-bold uppercase tracking-wider mb-0.5">Religion / Caste</span>
+                    <span className="font-extrabold text-white text-sm">{selectedProfile.religion} ({selectedProfile.community})</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-4 border-t border-slate-100 pt-4 text-xs">
+            <div className="space-y-5 border-t border-white/5 pt-5 text-sm leading-relaxed">
               <div>
-                <h5 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-1">About Me</h5>
-                <p className="text-slate-600 leading-relaxed italic">"{selectedProfile.about_me}"</p>
+                <h5 className="font-black text-white text-xs uppercase tracking-widest mb-1.5 text-pink-400">About Me</h5>
+                <p className="text-slate-200 italic">"{selectedProfile.about_me}"</p>
               </div>
 
               <div>
-                <h5 className="font-bold text-slate-900 text-xs uppercase tracking-wider mb-1">Partner Expectations</h5>
-                <p className="text-slate-600 leading-relaxed">"{selectedProfile.partner_expectations}"</p>
+                <h5 className="font-black text-white text-xs uppercase tracking-widest mb-1.5 text-pink-400">Partner Expectations</h5>
+                <p className="text-slate-200">"{selectedProfile.partner_expectations}"</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 pt-2">
+              <div className="grid grid-cols-2 gap-5 pt-2">
                 <div>
-                  <h5 className="font-bold text-slate-950 text-[11px] mb-1">Lifestyle</h5>
-                  <p className="text-slate-600">{selectedProfile.lifestyle}</p>
+                  <h5 className="font-black text-white text-xs uppercase tracking-widest mb-1.5 text-amber-300">Lifestyle</h5>
+                  <p className="text-slate-300">{selectedProfile.lifestyle}</p>
                 </div>
                 <div>
-                  <h5 className="font-bold text-slate-950 text-[11px] mb-1">Family Expectations</h5>
-                  <p className="text-slate-600">{selectedProfile.family_expectations}</p>
+                  <h5 className="font-black text-white text-xs uppercase tracking-widest mb-1.5 text-amber-300">Family Expectations</h5>
+                  <p className="text-slate-300">{selectedProfile.family_expectations}</p>
                 </div>
               </div>
 
-              <div className="flex gap-2 pt-4">
+              <div className="flex gap-3 pt-5 border-t border-white/5">
                 <button
                   onClick={() => {
                     handleLike(selectedProfile.id, selectedProfile.name);
                     setSelectedProfile(null);
                   }}
-                  className="flex-1 bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2"
+                  className="flex-1 bg-pink-600 hover:bg-pink-700 text-white text-sm font-extrabold py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-pink-900/20"
                 >
-                  <Heart className="w-4 h-4 fill-white" />
+                  <Heart className="w-5 h-5 fill-white" />
                   Connect With {selectedProfile.name}
                 </button>
                 <button
                   onClick={() => {
-                    // Report candidate simulation
                     setReports(prev => [
                       ...prev,
                       {
@@ -1322,7 +1367,7 @@ export default function App() {
                     showToast(`⚠️ You have flagged and reported ${selectedProfile.name}'s profile. Safety team will investigate.`);
                     setSelectedProfile(null);
                   }}
-                  className="bg-slate-100 hover:bg-slate-200 text-rose-600 text-xs font-bold py-2.5 px-4 rounded-xl"
+                  className="bg-white/5 hover:bg-white/10 text-rose-400 border border-rose-500/20 text-sm font-bold py-3.5 px-5 rounded-xl"
                 >
                   Report Safety Violation
                 </button>
@@ -1334,52 +1379,52 @@ export default function App() {
 
       {/* PROGRESSIVE ONBOARDING SETUP FORM POPUP */}
       {isOnboardingOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl w-full max-w-xl shadow-2xl border border-slate-100 p-6 relative animate-fadeIn">
+        <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-white/10 rounded-3xl w-full max-w-xl shadow-2xl p-6 md:p-8 relative animate-fadeIn">
 
             <button
               type="button"
               onClick={() => setIsOnboardingOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-700"
+              className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-full transition-all"
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </button>
 
             {/* Stepper Status Indicators */}
-            <div className="flex justify-between items-center mb-6">
-              <span className="text-xs font-bold bg-pink-50 text-pink-700 px-3 py-1 rounded-full border border-pink-100">
+            <div className="flex justify-between items-center mb-6 mt-2">
+              <span className="text-xs font-black bg-pink-500/10 text-pink-300 px-3.5 py-1.5 rounded-full border border-pink-500/20 uppercase tracking-wider">
                 Progressive Registration (Step {onboardingStep} of 6)
               </span>
-              <div className="flex gap-1">
+              <div className="flex gap-1.5">
                 {[1, 2, 3, 4, 5, 6].map((num) => (
                   <div
                     key={num}
-                    className={`h-2 w-5 rounded-full transition-all ${
-                      onboardingStep >= num ? 'bg-pink-600' : 'bg-slate-200'
+                    className={`h-2.5 w-6 rounded-full transition-all duration-300 ${
+                      onboardingStep >= num ? 'bg-pink-500 shadow-md shadow-pink-900/30' : 'bg-white/10'
                     }`}
                   />
                 ))}
               </div>
             </div>
 
-            <form onSubmit={handleOnboardingSubmit} className="space-y-4">
+            <form onSubmit={handleOnboardingSubmit} className="space-y-5">
 
               {/* STEP 1: ACCOUNT TYPE */}
               {onboardingStep === 1 && (
-                <div className="space-y-3 animate-fadeIn">
-                  <h4 className="font-black text-slate-900 text-sm">Step 1: Welcome & Profile Mode</h4>
-                  <p className="text-xs text-slate-500">How do you intend to run this profile?</p>
+                <div className="space-y-4 animate-fadeIn">
+                  <h4 className="font-black text-white text-base">Step 1: Welcome & Profile Mode</h4>
+                  <p className="text-sm text-slate-300 leading-relaxed">How do you intend to run this profile?</p>
 
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 gap-3">
                     {["self", "parent", "family"].map((type) => (
                       <button
                         key={type}
                         type="button"
                         onClick={() => setOnboardingForm(prev => ({ ...prev, account_type: type }))}
-                        className={`p-4 border rounded-xl text-center font-bold text-xs capitalize ${
+                        className={`p-4.5 border rounded-xl text-center font-extrabold text-sm capitalize transition-all duration-150 ${
                           onboardingForm.account_type === type
-                            ? 'bg-pink-50 border-pink-500 text-pink-700 ring-2 ring-pink-100'
-                            : 'border-slate-200 hover:border-slate-300 text-slate-700'
+                            ? 'bg-pink-600/20 border-pink-500 text-pink-300 ring-2 ring-pink-500/30'
+                            : 'border-white/10 hover:border-white/20 text-slate-200'
                         }`}
                       >
                         {type}
@@ -1387,12 +1432,12 @@ export default function App() {
                     ))}
                   </div>
 
-                  <div className="space-y-2 mt-4">
-                    <label className="block text-[11px] font-bold text-slate-600">Mobile Number for OTP onboarding</label>
+                  <div className="space-y-2 mt-5">
+                    <label className="block text-xs uppercase font-bold text-slate-400 mb-1 tracking-wider">Mobile Number for OTP onboarding</label>
                     <input
                       type="tel"
                       defaultValue="+91 98765 43210"
-                      className="w-full px-3 py-2 border rounded-xl text-xs bg-slate-50 focus:outline-none"
+                      className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:ring-1 focus:ring-pink-500"
                     />
                   </div>
                 </div>
@@ -1400,26 +1445,26 @@ export default function App() {
 
               {/* STEP 2: BASIC INFORMATION */}
               {onboardingStep === 2 && (
-                <div className="space-y-3 animate-fadeIn">
-                  <h4 className="font-black text-slate-900 text-sm">Step 2: Core Details</h4>
+                <div className="space-y-4 animate-fadeIn">
+                  <h4 className="font-black text-white text-base">Step 2: Core Details</h4>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Name</label>
+                      <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Name</label>
                       <input
                         type="text"
                         required
                         value={onboardingForm.name}
                         onChange={(e) => setOnboardingForm(prev => ({ ...prev, name: e.target.value }))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                        className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Gender</label>
+                      <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Gender</label>
                       <select
                         value={onboardingForm.gender}
                         onChange={(e) => setOnboardingForm(prev => ({ ...prev, gender: e.target.value }))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                        className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                       >
                         <option>Male</option>
                         <option>Female</option>
@@ -1427,25 +1472,25 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Location</label>
+                      <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Location</label>
                       <input
                         type="text"
                         required
                         value={onboardingForm.location}
                         onChange={(e) => setOnboardingForm(prev => ({ ...prev, location: e.target.value }))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                        className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Date of Birth</label>
+                      <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Date of Birth</label>
                       <input
                         type="date"
                         required
                         value={onboardingForm.date_of_birth}
                         onChange={(e) => setOnboardingForm(prev => ({ ...prev, date_of_birth: e.target.value }))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                        className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                       />
                     </div>
                   </div>
@@ -1454,38 +1499,38 @@ export default function App() {
 
               {/* STEP 3: EDUCATION & CAREER */}
               {onboardingStep === 3 && (
-                <div className="space-y-3 animate-fadeIn">
-                  <h4 className="font-black text-slate-900 text-sm">Step 3: Education & Career</h4>
+                <div className="space-y-4 animate-fadeIn">
+                  <h4 className="font-black text-white text-base">Step 3: Education & Career</h4>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Highest Degree</label>
+                      <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Highest Degree</label>
                       <input
                         type="text"
                         required
                         value={onboardingForm.education_level}
                         onChange={(e) => setOnboardingForm(prev => ({ ...prev, education_level: e.target.value }))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                        className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Profession</label>
+                      <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Profession</label>
                       <input
                         type="text"
                         required
                         value={onboardingForm.profession}
                         onChange={(e) => setOnboardingForm(prev => ({ ...prev, profession: e.target.value }))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                        className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Current Salary Range (shown as abstract range for privacy)</label>
+                    <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Current Salary Range (shown as abstract range for privacy)</label>
                     <select
                       value={onboardingForm.income_range}
                       onChange={(e) => setOnboardingForm(prev => ({ ...prev, income_range: e.target.value }))}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                      className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                     >
                       <option>₹10–15 LPA</option>
                       <option>₹15–20 LPA</option>
@@ -1500,28 +1545,28 @@ export default function App() {
 
               {/* STEP 4: FAMILY EXPECTATIONS */}
               {onboardingStep === 4 && (
-                <div className="space-y-3 animate-fadeIn">
-                  <h4 className="font-black text-slate-900 text-sm">Step 4: Family Details</h4>
+                <div className="space-y-4 animate-fadeIn">
+                  <h4 className="font-black text-white text-base">Step 4: Family Details</h4>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Religion</label>
+                    <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Religion</label>
                     <input
                       type="text"
                       required
                       value={onboardingForm.religion}
                       onChange={(e) => setOnboardingForm(prev => ({ ...prev, religion: e.target.value }))}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                      className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Mother Tongue</label>
+                    <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Mother Tongue</label>
                     <input
                       type="text"
                       required
                       value={onboardingForm.mother_tongue}
                       onChange={(e) => setOnboardingForm(prev => ({ ...prev, mother_tongue: e.target.value }))}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                      className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                     />
                   </div>
                 </div>
@@ -1529,16 +1574,16 @@ export default function App() {
 
               {/* STEP 5: LIFESTYLE & PERSONAL FREE-TEXT */}
               {onboardingStep === 5 && (
-                <div className="space-y-3 animate-fadeIn">
-                  <h4 className="font-black text-slate-900 text-sm">Step 5: Lifestyle & Expectations</h4>
+                <div className="space-y-4 animate-fadeIn">
+                  <h4 className="font-black text-white text-base">Step 5: Lifestyle & Expectations</h4>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Food Preference</label>
+                      <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Food Preference</label>
                       <select
                         value={onboardingForm.food_preference}
                         onChange={(e) => setOnboardingForm(prev => ({ ...prev, food_preference: e.target.value }))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                        className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                       >
                         <option>Vegetarian</option>
                         <option>Non-Vegetarian</option>
@@ -1546,11 +1591,11 @@ export default function App() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-600 mb-1">Smoking Habit</label>
+                      <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">Smoking Habit</label>
                       <select
                         value={onboardingForm.smoking_status}
                         onChange={(e) => setOnboardingForm(prev => ({ ...prev, smoking_status: e.target.value }))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                        className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                       >
                         <option>No</option>
                         <option>Yes</option>
@@ -1560,12 +1605,12 @@ export default function App() {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-600 mb-1">About Me (used for Semantic Matching)</label>
+                    <label className="block text-xs uppercase font-bold text-slate-400 mb-1.5 tracking-wider">About Me (used for Semantic Matching)</label>
                     <textarea
-                      rows={2}
+                      rows={3}
                       value={onboardingForm.about_me}
                       onChange={(e) => setOnboardingForm(prev => ({ ...prev, about_me: e.target.value }))}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-pink-500"
+                      className="w-full px-4 py-3 bg-slate-950/85 border border-white/10 rounded-xl text-sm text-white focus:ring-1 focus:ring-pink-500"
                     />
                   </div>
                 </div>
@@ -1573,19 +1618,19 @@ export default function App() {
 
               {/* STEP 6: VERIFICATION PRE-APPROVALS */}
               {onboardingStep === 6 && (
-                <div className="space-y-4 animate-fadeIn">
-                  <h4 className="font-black text-slate-900 text-sm">Step 6: Confirm Photos & Finalize</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    You can start using WeddingBells right away! Would you like to pre-approve safety terms and finalize your account profile?
+                <div className="space-y-5 animate-fadeIn">
+                  <h4 className="font-black text-white text-base">Step 6: Confirm Photos & Finalize</h4>
+                  <p className="text-sm text-slate-300 leading-relaxed">
+                    You can start using PureVows AI right away! Would you like to pre-approve safety terms and finalize your account profile?
                   </p>
 
-                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs space-y-2">
-                    <label className="flex items-start gap-2 cursor-pointer">
-                      <input type="checkbox" defaultChecked className="mt-0.5" />
+                  <div className="bg-slate-950 p-5 rounded-2xl border border-white/10 text-sm space-y-3">
+                    <label className="flex items-start gap-3 cursor-pointer text-slate-200">
+                      <input type="checkbox" defaultChecked className="mt-1 accent-pink-500" />
                       <span>Accept digital personal data verification guidelines (DPDP Act 2023)</span>
                     </label>
-                    <label className="flex items-start gap-2 cursor-pointer">
-                      <input type="checkbox" defaultChecked className="mt-0.5" />
+                    <label className="flex items-start gap-3 cursor-pointer text-slate-200">
+                      <input type="checkbox" defaultChecked className="mt-1 accent-pink-500" />
                       <span>Allow matches to see my public photos directly</span>
                     </label>
                   </div>
@@ -1593,12 +1638,12 @@ export default function App() {
               )}
 
               {/* Stepper Footer Controls */}
-              <div className="flex justify-between pt-4 border-t border-slate-100">
+              <div className="flex justify-between pt-5 border-t border-white/5 mt-6">
                 <button
                   type="button"
                   onClick={handlePrevOnboardingStep}
                   disabled={onboardingStep === 1}
-                  className="px-4 py-2 text-xs font-bold text-slate-500 hover:text-slate-800 disabled:opacity-30"
+                  className="px-5 py-2 text-sm font-extrabold text-slate-400 hover:text-white disabled:opacity-20 transition-colors"
                 >
                   Previous
                 </button>
@@ -1607,14 +1652,14 @@ export default function App() {
                   <button
                     type="button"
                     onClick={handleNextOnboardingStep}
-                    className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-2 px-4 rounded-xl"
+                    className="bg-white hover:bg-slate-200 text-slate-950 text-xs md:text-sm font-extrabold py-2.5 px-5 rounded-xl transition-all duration-150"
                   >
                     Next Step
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    className="bg-pink-600 hover:bg-pink-700 text-white text-xs font-bold py-2 px-6 rounded-xl shadow-sm"
+                    className="bg-pink-600 hover:bg-pink-700 text-white text-xs md:text-sm font-extrabold py-2.5 px-6 rounded-xl shadow-lg shadow-pink-900/20"
                   >
                     Finish and Save Profile
                   </button>
@@ -1627,17 +1672,17 @@ export default function App() {
       )}
 
       {/* FOOTER BAR */}
-      <footer className="bg-slate-900 text-slate-400 py-6 px-6 mt-12 border-t border-slate-800 shrink-0">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+      <footer className="bg-slate-950 text-slate-400 py-8 px-6 mt-16 border-t border-white/5 shrink-0 relative z-10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
           <div>
-            <p className="font-bold text-slate-200">WeddingBells Matrimonial System</p>
+            <p className="font-extrabold text-white text-base">PureVows AI Matrimonial System</p>
             <p className="text-slate-500 mt-1">Robust AI matching + Multi-generational co-management + Extreme Privacy Guardrails.</p>
           </div>
-          <div className="flex gap-4">
-            <span className="hover:text-slate-200 cursor-pointer">Terms of Service</span>
-            <span className="hover:text-slate-200 cursor-pointer">DPDP Compliance</span>
-            <span className="hover:text-slate-200 cursor-pointer">Security Audits</span>
-            <span className="hover:text-slate-200 cursor-pointer">Support</span>
+          <div className="flex flex-wrap gap-5">
+            <span className="hover:text-white cursor-pointer transition-colors font-semibold">Terms of Service</span>
+            <span className="hover:text-white cursor-pointer transition-colors font-semibold">DPDP Compliance</span>
+            <span className="hover:text-white cursor-pointer transition-colors font-semibold">Security Audits</span>
+            <span className="hover:text-white cursor-pointer transition-colors font-semibold">Support</span>
           </div>
         </div>
       </footer>

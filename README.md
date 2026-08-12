@@ -1,13 +1,13 @@
-# WeddingBells - AI-First Matrimonial Marketplace
+# PureVows AI - Trusted AI Matrimonial Marketplace
 
-WeddingBells is an **AI-first matrimonial marketplace** designed to replace the outdated, high-friction, and low-trust experience of traditional matrimonial sites. By pairing high-quality semantic recommendation layers with deterministic preference matching, a secure trust verification framework, and multi-generational profile management (Self, Parent, Joint), WeddingBells offers the perfect balance of modern intelligence and traditional alignment.
+PureVows AI is an **AI-first matrimonial marketplace** designed to replace the outdated, high-friction, and low-trust experience of traditional matrimonial sites. By pairing high-quality semantic recommendation layers with deterministic preference matching, a secure trust verification framework, and multi-generational profile management (Self, Parent, Joint), PureVows AI offers the perfect balance of modern intelligence and traditional alignment.
 
 ---
 
 ## Technical Architecture & Core Pillars
 
 ### 1. Multi-Generational Profile Management (Self, Parent, Joint)
-Unlike traditional systems that lead to friction or separate duplicate accounts for parents and candidates, WeddingBells models relationship-level co-management natively.
+Unlike traditional systems that lead to friction or separate duplicate accounts for parents and candidates, PureVows AI models relationship-level co-management natively.
 * **👤 Self-Managed Mode**: Created and operated entirely by the candidate.
 * **👨‍👩‍👧 Parent/Family Mode**: Created by a parent or guardian. They can configure the profile, and invite the son/daughter via email.
 * **👥 Joint Mode**: Established when a son/daughter accepts their parent's invitation. Both parent and candidate have permissions to manage the account, see matches, or handle communication based on co-management rules.
@@ -84,12 +84,12 @@ Calculates a numerical score out of 100 based on weighted preferences:
 * **Religion & Community** (10%)
 
 #### Layer 3: Semantic AI Matching (pgvector Similarity)
-Compares dense vector representations of free-text inputs (*About Me*, *Partner Expectations*, *Family Expectations*, *Future Goals*, and *Marriage Expectations*) using cosine distance in `pgvector`. This enables WeddingBells to comprehend nuanced prompts such as matching "career-oriented but values family time" with a candidate who expresses "I love my IT career but family is my ultimate priority."
+Compares dense vector representations of free-text inputs (*About Me*, *Partner Expectations*, *Family Expectations*, *Future Goals*, and *Marriage Expectations*) using cosine distance in `pgvector`. This enables PureVows AI to comprehend nuanced prompts such as matching "career-oriented but values family time" with a candidate who expresses "I love my IT career but family is my ultimate priority."
 
 ---
 
 ### 4. "Ask AI" Search Schema Validation
-To avoid unsafe direct SQL execution from natural language prompts, WeddingBells uses a structured validator loop.
+To avoid unsafe direct SQL execution from natural language prompts, PureVows AI uses a structured validator loop.
 
 ```
   [ Natural Language Query ]

@@ -1,4 +1,4 @@
--- SQL Schema for WeddingBells - AI-First Matrimonial Marketplace
+-- SQL Schema for PureVows AI - Trusted AI Matrimonial Marketplace
 -- Uses PostgreSQL and pgvector for semantic profile matching
 
 -- Enable pgvector extension

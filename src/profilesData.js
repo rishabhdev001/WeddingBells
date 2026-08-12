@@ -1,4 +1,4 @@
-// Seed profiles for WeddingBells - AI-First Matrimonial Marketplace
+// Seed profiles for PureVows AI - Trusted AI Matrimonial Marketplace
 
 export const seedProfiles = [
   {
