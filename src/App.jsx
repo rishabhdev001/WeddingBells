@@ -133,9 +133,11 @@ export default function App() {
     prefer_income_min: 15,
     dealbreaker_smoking: true,
     dealbreaker_drinking: false,
+    custom_filters: [], // list of custom filter keywords/options
   });
 
   const [isPreferencesModalOpen, setIsPreferencesModalOpen] = useState(false);
+  const [newCustomFilterInput, setNewCustomFilterInput] = useState("");
   const [prefForm, setPrefForm] = useState({
     must_age_min: 24,
     must_age_max: 32,
@@ -147,6 +149,7 @@ export default function App() {
     prefer_income_min: 15,
     dealbreaker_smoking: true,
     dealbreaker_drinking: false,
+    custom_filters: [],
   });
 
   // Interaction States
@@ -183,8 +186,20 @@ export default function App() {
   const [uploadedSelfieFile, setUploadedSelfieFile] = useState(null);
 
   // User uploaded additional pictures
-  const [newPhotoUrl, setNewPhotoUrl] = useState("");
+  const [selectedLocalPhoto, setSelectedLocalPhoto] = useState(null);
   const [isNewPhotoPublic, setIsNewPhotoPublic] = useState(true);
+
+  // Helper for direct file upload reading
+  const handleLocalFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedLocalPhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Security and admin states
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -266,6 +281,15 @@ export default function App() {
       }
       if (preferences.dealbreaker_drinking && (profile.drinking_status === "Yes" || profile.drinking_status === "Occasionally" || profile.drinking_status === "Socially")) {
         return false;
+      }
+
+      // Custom Match Preferences Filters Check
+      if (preferences.custom_filters && preferences.custom_filters.length > 0) {
+        const profileStr = `${profile.name} ${profile.profession} ${profile.company} ${profile.religion} ${profile.community} ${profile.about_me} ${profile.hobbies.join(" ")}`.toLowerCase();
+        const matchesAnyCustom = preferences.custom_filters.some(filter =>
+          profileStr.includes(filter.toLowerCase())
+        );
+        if (!matchesAnyCustom) return false;
       }
 
       if (parsedSchema) {
@@ -424,13 +448,16 @@ export default function App() {
     }, 4000);
   };
 
-  // Add personal photo helper
+  // Add personal photo helper via direct upload
   const handleAddCustomPhoto = (e) => {
     e.preventDefault();
-    if (!newPhotoUrl.trim()) return;
+    if (!selectedLocalPhoto) {
+      showToast("⚠️ Please select an image file to upload.");
+      return;
+    }
 
     const newPic = {
-      url: newPhotoUrl,
+      url: selectedLocalPhoto,
       is_public: isNewPhotoPublic
     };
 
@@ -444,8 +471,8 @@ export default function App() {
         photos: updatedPhotos
       };
     });
-    setNewPhotoUrl("");
-    showToast(`📸 Photo added successfully as a ${isNewPhotoPublic ? 'Public' : 'Private'} picture.`);
+    setSelectedLocalPhoto(null);
+    showToast(`📸 Photo uploaded directly and added successfully as a ${isNewPhotoPublic ? 'Public' : 'Private'} picture.`);
   };
 
   // Delete photo helper
@@ -1192,6 +1219,37 @@ export default function App() {
                         </li>
                       </ul>
                     </div>
+
+                    {/* CUSTOM ACTIVE FILTERS */}
+                    {preferences.custom_filters && preferences.custom_filters.length > 0 && (
+                      <div className="bg-amber-950/20 p-4 rounded-2xl border border-amber-500/20 text-left">
+                        <span className="text-xs font-black text-amber-300 uppercase tracking-widest block mb-2.5">
+                          ✨ Custom Preferences / Keywords
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {preferences.custom_filters.map((filter, index) => (
+                            <span
+                              key={index}
+                              className="text-xs bg-amber-500/10 border border-amber-500/20 text-amber-300 px-2.5 py-1 rounded-full font-bold flex items-center gap-1"
+                            >
+                              {filter}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updated = preferences.custom_filters.filter((_, idx) => idx !== index);
+                                  setPreferences(p => ({ ...p, custom_filters: updated }));
+                                  showToast(`Removed custom filter: "${filter}"`);
+                                }}
+                                className="hover:text-white"
+                                title="Remove filter"
+                              >
+                                ✕
+                              </button>
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -1509,19 +1567,39 @@ export default function App() {
                       </div>
                     )}
 
-                    {/* MOCK PHOTO/SELFIE UPLOADER */}
+                    {/* DIRECT PHOTO/SELFIE FILE UPLOADER */}
                     <div className="bg-slate-950/80 p-4.5 rounded-2xl border border-white/5 space-y-3.5">
                       <span className="text-xs font-black text-pink-400 uppercase tracking-widest block">
                         📸 Add Profile Photo / Selfie
                       </span>
                       <form onSubmit={handleAddCustomPhoto} className="space-y-3">
-                        <input
-                          type="url"
-                          placeholder="Paste photo image URL..."
-                          value={newPhotoUrl}
-                          onChange={(e) => setNewPhotoUrl(e.target.value)}
-                          className="w-full px-3 py-2 bg-slate-900 border border-white/10 rounded-lg text-xs text-white focus:outline-none"
-                        />
+                        <div className="relative border-2 border-dashed border-white/10 hover:border-pink-500/30 rounded-xl p-4 text-center transition-all cursor-pointer bg-slate-900/40">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleLocalFileChange}
+                            className="absolute inset-0 opacity-0 cursor-pointer"
+                            id="portfolio-file-upload"
+                          />
+                          <Upload className="mx-auto w-5 h-5 text-slate-400 mb-1" />
+                          <span className="text-[11px] font-bold text-slate-200 block">
+                            {selectedLocalPhoto ? "✅ Photo Selected" : "Click to select a photo file"}
+                          </span>
+                        </div>
+
+                        {selectedLocalPhoto && (
+                          <div className="relative rounded-lg overflow-hidden border border-white/10 max-h-24 aspect-video bg-slate-950 flex items-center justify-center">
+                            <img src={selectedLocalPhoto} alt="Upload Preview" className="h-full object-contain" />
+                            <button
+                              type="button"
+                              onClick={() => setSelectedLocalPhoto(null)}
+                              className="absolute top-1 right-1 bg-black/60 text-white p-1 rounded-full hover:bg-rose-600 transition-all text-[10px]"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+
                         <div className="flex items-center justify-between text-xs text-slate-300">
                           <span>Set public photo</span>
                           <button
@@ -2010,6 +2088,78 @@ export default function App() {
                     min="0"
                   />
                 </div>
+              </div>
+
+              {/* CUSTOM MATCH PREFERENCES BUILDER SECTION */}
+              <div className="bg-amber-950/15 p-4 rounded-2xl border border-amber-500/20 space-y-3">
+                <span className="text-xs font-black text-amber-300 uppercase tracking-widest block mb-1">
+                  ✨ Custom Options / Keywords Filter
+                </span>
+                <p className="text-[10px] text-slate-400">
+                  Add custom keywords (e.g., "doctor", "Intel", "classical") to match against candidate profiles.
+                </p>
+
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newCustomFilterInput}
+                    onChange={(e) => setNewCustomFilterInput(e.target.value)}
+                    placeholder="e.g. Doctor, Intel, Chess"
+                    className="flex-1 bg-slate-950/80 border border-white/10 text-white rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (newCustomFilterInput.trim()) {
+                          const val = newCustomFilterInput.trim();
+                          if (!prefForm.custom_filters.includes(val)) {
+                            setPrefForm(p => ({ ...p, custom_filters: [...p.custom_filters, val] }));
+                          }
+                          setNewCustomFilterInput("");
+                        }
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (newCustomFilterInput.trim()) {
+                        const val = newCustomFilterInput.trim();
+                        if (!prefForm.custom_filters.includes(val)) {
+                          setPrefForm(p => ({ ...p, custom_filters: [...p.custom_filters, val] }));
+                        }
+                        setNewCustomFilterInput("");
+                      }
+                    }}
+                    className="bg-amber-600 hover:bg-amber-700 text-slate-950 px-3 py-2 rounded-xl text-xs font-black"
+                  >
+                    Add Option
+                  </button>
+                </div>
+
+                {prefForm.custom_filters && prefForm.custom_filters.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {prefForm.custom_filters.map((filter, index) => (
+                      <span
+                        key={index}
+                        className="text-xs bg-slate-950 border border-white/10 text-slate-200 px-2 py-1 rounded-full flex items-center gap-1"
+                      >
+                        {filter}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setPrefForm(p => ({
+                              ...p,
+                              custom_filters: p.custom_filters.filter((_, idx) => idx !== index)
+                            }));
+                          }}
+                          className="text-slate-400 hover:text-white"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Action Buttons */}
