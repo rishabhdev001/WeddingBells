@@ -80,6 +80,7 @@ export default function App() {
   });
 
   // Active Current Logged In User State
+  const [primaryPhotoIndex, setPrimaryPhotoIndex] = useState(0);
   const [currentUser, setCurrentUser] = useState({
     name: "Rishabh Malhotra",
     gender: "Male",
@@ -122,6 +123,20 @@ export default function App() {
 
   // Custom user preferences state
   const [preferences, setPreferences] = useState({
+    must_age_min: 24,
+    must_age_max: 32,
+    must_genders: ["Female"],
+    must_locations: ["Bangalore", "Hyderabad", "Mumbai"],
+    must_marital_statuses: ["Never married"],
+    must_food_preference: "Vegetarian",
+    prefer_education_level: "Master's Degree",
+    prefer_income_min: 15,
+    dealbreaker_smoking: true,
+    dealbreaker_drinking: false,
+  });
+
+  const [isPreferencesModalOpen, setIsPreferencesModalOpen] = useState(false);
+  const [prefForm, setPrefForm] = useState({
     must_age_min: 24,
     must_age_max: 32,
     must_genders: ["Female"],
@@ -222,10 +237,36 @@ export default function App() {
       if (blockedProfiles.some(bp => bp.id === profile.id)) return false;
 
       // Layer 1: Hard Filters (Eliminate profiles that fail Must Haves)
-      if (currentUser.gender === "Male" && profile.gender !== "Female") return false;
-      if (currentUser.gender === "Female" && profile.gender !== "Male") return false;
+      // Gender preference based on must_genders
+      if (preferences.must_genders && preferences.must_genders.length > 0) {
+        if (!preferences.must_genders.includes(profile.gender)) return false;
+      } else {
+        if (currentUser.gender === "Male" && profile.gender !== "Female") return false;
+        if (currentUser.gender === "Female" && profile.gender !== "Male") return false;
+      }
 
+      // Age range hard filter
       if (profile.age < preferences.must_age_min || profile.age > preferences.must_age_max) return false;
+
+      // Locations hard filter
+      if (preferences.must_locations && preferences.must_locations.length > 0) {
+        const profileCity = profile.location.split(",")[0].trim().toLowerCase();
+        const hasLocationMatch = preferences.must_locations.some(loc => profileCity.includes(loc.toLowerCase()));
+        if (!hasLocationMatch) return false;
+      }
+
+      // Food preference hard filter
+      if (preferences.must_food_preference) {
+        if (profile.food_preference !== preferences.must_food_preference) return false;
+      }
+
+      // Dealbreakers
+      if (preferences.dealbreaker_smoking && (profile.smoking_status === "Yes" || profile.smoking_status === "Occasionally")) {
+        return false;
+      }
+      if (preferences.dealbreaker_drinking && (profile.drinking_status === "Yes" || profile.drinking_status === "Occasionally" || profile.drinking_status === "Socially")) {
+        return false;
+      }
 
       if (parsedSchema) {
         if (parsedSchema.age) {
@@ -243,7 +284,8 @@ export default function App() {
 
       return true;
     }).map(profile => {
-      const { score, reasons } = calculateHybridScore(currentUser, profile);
+      // Calculate Hybrid score with dynamic preference weights
+      const { score, reasons } = calculateHybridScore(currentUser, profile, preferences);
       return {
         ...profile,
         matchScore: score,
@@ -392,12 +434,38 @@ export default function App() {
       is_public: isNewPhotoPublic
     };
 
-    setCurrentUser(prev => ({
-      ...prev,
-      photos: [...(prev.photos || []), newPic]
-    }));
+    setCurrentUser(prev => {
+      const updatedPhotos = [...(prev.photos || []), newPic];
+      if (isNewPhotoPublic) {
+        setPrimaryPhotoIndex(updatedPhotos.length - 1);
+      }
+      return {
+        ...prev,
+        photos: updatedPhotos
+      };
+    });
     setNewPhotoUrl("");
     showToast(`📸 Photo added successfully as a ${isNewPhotoPublic ? 'Public' : 'Private'} picture.`);
+  };
+
+  // Delete photo helper
+  const handleDeletePhoto = (indexToDelete) => {
+    setCurrentUser(prev => {
+      const updatedPhotos = (prev.photos || []).filter((_, idx) => idx !== indexToDelete);
+      // Adjust primary photo index if needed
+      if (primaryPhotoIndex >= updatedPhotos.length) {
+        setPrimaryPhotoIndex(Math.max(0, updatedPhotos.length - 1));
+      } else if (primaryPhotoIndex === indexToDelete) {
+        setPrimaryPhotoIndex(0);
+      } else if (primaryPhotoIndex > indexToDelete) {
+        setPrimaryPhotoIndex(prevIdx => prevIdx - 1);
+      }
+      return {
+        ...prev,
+        photos: updatedPhotos
+      };
+    });
+    showToast("🗑️ Photo deleted successfully.");
   };
 
   // Progressive profile creation form submission
@@ -1054,14 +1122,25 @@ export default function App() {
               {/* LEFT COLUMN: CRITERIA SIDEBAR */}
               <div className="lg:col-span-4 space-y-6">
                 <div className="bg-slate-900/75 border border-white/10 rounded-3xl p-6 shadow-xl backdrop-blur-md">
-                  <h4 className="text-base font-black text-white flex items-center gap-2 mb-4">
-                    <Settings className="text-pink-500 w-5 h-5" />
-                    Your Classified Match Criteria
-                  </h4>
+                  <div className="flex justify-between items-center mb-4">
+                    <h4 className="text-base font-black text-white flex items-center gap-2">
+                      <Settings className="text-pink-500 w-5 h-5 animate-spin-slow" />
+                      Your Match Criteria
+                    </h4>
+                    <button
+                      onClick={() => {
+                        setPrefForm({ ...preferences });
+                        setIsPreferencesModalOpen(true);
+                      }}
+                      className="text-xs bg-pink-500/10 hover:bg-pink-500/20 text-pink-300 font-extrabold px-3.5 py-1.5 rounded-full border border-pink-500/30 shadow-lg shadow-pink-500/5 hover:scale-105 transition-all duration-200"
+                    >
+                      ✏️ Edit Filters
+                    </button>
+                  </div>
 
                   <div className="space-y-4">
                     {/* MUST HAVES */}
-                    <div className="bg-rose-950/20 p-4 rounded-2xl border border-rose-500/20">
+                    <div className="bg-rose-950/20 p-4 rounded-2xl border border-rose-500/20 text-left">
                       <span className="text-xs font-black text-rose-300 uppercase tracking-widest block mb-2.5">
                         📌 Must Have (Hard Filters)
                       </span>
@@ -1078,11 +1157,27 @@ export default function App() {
                           <CheckSquare className="w-4 h-4 text-rose-400 shrink-0" />
                           <span>Locations: <strong className="font-bold text-white">{preferences.must_locations.join(", ")}</strong></span>
                         </li>
+                        <li className="flex items-center gap-2.5">
+                          <CheckSquare className="w-4 h-4 text-rose-400 shrink-0" />
+                          <span>Food Preference: <strong className="font-bold text-white">{preferences.must_food_preference}</strong></span>
+                        </li>
+                        {preferences.dealbreaker_smoking && (
+                          <li className="flex items-center gap-2.5 text-rose-300">
+                            <span className="w-4 h-4 flex items-center justify-center font-bold text-rose-400 text-xs shrink-0">✕</span>
+                            <span>Dealbreaker: <strong className="font-bold text-rose-200">No Smoking</strong></span>
+                          </li>
+                        )}
+                        {preferences.dealbreaker_drinking && (
+                          <li className="flex items-center gap-2.5 text-rose-300">
+                            <span className="w-4 h-4 flex items-center justify-center font-bold text-rose-400 text-xs shrink-0">✕</span>
+                            <span>Dealbreaker: <strong className="font-bold text-rose-200">No Drinking</strong></span>
+                          </li>
+                        )}
                       </ul>
                     </div>
 
                     {/* PREFERS */}
-                    <div className="bg-blue-950/20 p-4 rounded-2xl border border-blue-500/20">
+                    <div className="bg-blue-950/20 p-4 rounded-2xl border border-blue-500/20 text-left">
                       <span className="text-xs font-black text-blue-300 uppercase tracking-widest block mb-2.5">
                         ⭐ Prefer (Scoring Weight Boosts)
                       </span>
@@ -1318,11 +1413,17 @@ export default function App() {
                 <div className="flex flex-col md:flex-row gap-8 items-start pb-8 border-b border-white/5">
 
                   {/* Photo area with picture/selfie upload capabilities */}
-                  <div className="w-full md:w-1/3 space-y-5">
-                    <div className="relative group rounded-2xl overflow-hidden border-2 border-white/10 bg-slate-950 aspect-square">
-                      {currentUser.photos && currentUser.photos[0] ? (
+                  <div className="w-full md:w-1/3 space-y-5 text-left">
+                    <div className="relative group rounded-2xl overflow-hidden border-2 border-white/10 bg-slate-950 aspect-square shadow-xl">
+                      {currentUser.photos && currentUser.photos[primaryPhotoIndex] ? (
                         <img
-                          src={currentUser.photos[currentUser.photos.length - 1].url}
+                          src={currentUser.photos[primaryPhotoIndex].url}
+                          alt="Your Profile"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : currentUser.photos && currentUser.photos[0] ? (
+                        <img
+                          src={currentUser.photos[0].url}
                           alt="Your Profile"
                           className="w-full h-full object-cover"
                         />
@@ -1334,11 +1435,79 @@ export default function App() {
                       )}
 
                       {currentUser.is_verified_photo && (
-                        <div className="absolute bottom-4 left-4 bg-emerald-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full flex items-center gap-1">
+                        <div className="absolute bottom-4 left-4 bg-emerald-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
                           <Check className="w-3.5 h-3.5" /> Photo Verified
                         </div>
                       )}
+
+                      {/* Overlaid primary indicator */}
+                      <div className="absolute top-4 right-4 bg-pink-600 text-white font-black text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-md shadow-md">
+                        Primary Active
+                      </div>
                     </div>
+
+                    {/* MANAGE PHOTOS / CHOOSE PRIMARY */}
+                    {currentUser.photos && currentUser.photos.length > 0 && (
+                      <div className="bg-slate-950/40 p-4 rounded-2xl border border-white/5 space-y-3">
+                        <span className="text-xs font-black text-slate-300 uppercase tracking-widest block">
+                          🖼️ Manage Photo Portfolio
+                        </span>
+                        <div className="grid grid-cols-3 gap-2.5">
+                          {currentUser.photos.map((photo, index) => {
+                            const isPrimary = index === primaryPhotoIndex;
+                            return (
+                              <div
+                                key={index}
+                                className={`relative rounded-lg overflow-hidden border-2 aspect-square cursor-pointer group/thumb transition-all duration-200 ${
+                                  isPrimary ? 'border-pink-500 ring-2 ring-pink-500/20' : 'border-white/10 hover:border-white/25'
+                                }`}
+                                onClick={() => setPrimaryPhotoIndex(index)}
+                                title="Click to set as primary profile picture"
+                              >
+                                <img src={photo.url} alt={`Thumbnail ${index + 1}`} className="w-full h-full object-cover" />
+
+                                {/* Label indicator */}
+                                <div className={`absolute bottom-0 inset-x-0 text-[8px] font-bold text-center py-0.5 ${
+                                  photo.is_public ? 'bg-emerald-950/80 text-emerald-300' : 'bg-rose-950/80 text-rose-300'
+                                }`}>
+                                  {photo.is_public ? 'Public' : 'Private'}
+                                </div>
+
+                                {/* Set as primary / delete hover overlay */}
+                                <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover/thumb:opacity-100 flex flex-col items-center justify-center gap-1 transition-opacity duration-150">
+                                  {!isPrimary && (
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setPrimaryPhotoIndex(index);
+                                        showToast("⭐️ Set as your primary profile photo.");
+                                      }}
+                                      className="bg-pink-500 hover:bg-pink-600 text-white font-black text-[9px] px-1.5 py-0.5 rounded"
+                                    >
+                                      Use Primary
+                                    </button>
+                                  )}
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleDeletePhoto(index);
+                                    }}
+                                    className="bg-slate-900 hover:bg-rose-600 text-slate-300 hover:text-white font-black text-[9px] px-1.5 py-0.5 rounded border border-white/10"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <p className="text-[10px] text-slate-400 italic">
+                          💡 Click any thumbnail above to set it as your primary public profile picture.
+                        </p>
+                      </div>
+                    )}
 
                     {/* MOCK PHOTO/SELFIE UPLOADER */}
                     <div className="bg-slate-950/80 p-4.5 rounded-2xl border border-white/5 space-y-3.5">
@@ -1665,6 +1834,201 @@ export default function App() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* CUSTOM PREFERENCES EDIT MODAL */}
+      {isPreferencesModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-slate-900 border border-white/10 rounded-3xl w-full max-w-lg shadow-2xl p-6 md:p-8 relative animate-fadeIn text-left">
+            <button
+              type="button"
+              onClick={() => setIsPreferencesModalOpen(false)}
+              className="absolute top-6 right-6 text-slate-400 hover:text-white p-1 rounded-full transition-all"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="mb-6">
+              <h3 className="text-xl font-black text-white flex items-center gap-2">
+                <Settings className="text-pink-500 w-6 h-6" />
+                Edit Match Preferences
+              </h3>
+              <p className="text-xs text-slate-400 mt-1">
+                Refine your filters. Must Haves acts as strict hard filters, while Prefers boost the compatibility match scores.
+              </p>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setPreferences({ ...prefForm });
+                setIsPreferencesModalOpen(false);
+              }}
+              className="space-y-4"
+            >
+              {/* MUST HAVES SECTION */}
+              <div className="bg-rose-950/10 p-4 rounded-2xl border border-rose-500/10 space-y-3">
+                <span className="text-xs font-black text-rose-300 uppercase tracking-widest block mb-1">
+                  📌 Must Haves (Hard Filters)
+                </span>
+
+                {/* Age Range */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-extrabold text-slate-300 mb-1">Min Age</label>
+                    <input
+                      type="number"
+                      value={prefForm.must_age_min}
+                      onChange={(e) => setPrefForm(p => ({ ...p, must_age_min: parseInt(e.target.value) || 20 }))}
+                      className="w-full bg-slate-950/80 border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-pink-500"
+                      min="18"
+                      max="100"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-extrabold text-slate-300 mb-1">Max Age</label>
+                    <input
+                      type="number"
+                      value={prefForm.must_age_max}
+                      onChange={(e) => setPrefForm(p => ({ ...p, must_age_max: parseInt(e.target.value) || 100 }))}
+                      className="w-full bg-slate-950/80 border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-pink-500"
+                      min="18"
+                      max="100"
+                    />
+                  </div>
+                </div>
+
+                {/* Genders */}
+                <div>
+                  <label className="block text-xs font-extrabold text-slate-300 mb-1">Target Gender</label>
+                  <div className="flex gap-2">
+                    {["Female", "Male"].map((g) => (
+                      <button
+                        key={g}
+                        type="button"
+                        onClick={() => {
+                          const genders = prefForm.must_genders.includes(g)
+                            ? prefForm.must_genders.filter(x => x !== g)
+                            : [...prefForm.must_genders, g];
+                          setPrefForm(p => ({ ...p, must_genders: genders.length ? genders : [g] }));
+                        }}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                          prefForm.must_genders.includes(g)
+                            ? "bg-pink-600 text-white"
+                            : "bg-slate-950 text-slate-400 hover:text-white"
+                        }`}
+                      >
+                        {g}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Locations */}
+                <div>
+                  <label className="block text-xs font-extrabold text-slate-300 mb-1">Preferred Cities (Comma separated)</label>
+                  <input
+                    type="text"
+                    value={prefForm.must_locations.join(", ")}
+                    onChange={(e) => {
+                      const locs = e.target.value.split(",").map(s => s.trim()).filter(Boolean);
+                      setPrefForm(p => ({ ...p, must_locations: locs }));
+                    }}
+                    className="w-full bg-slate-950/80 border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-pink-500"
+                    placeholder="Bangalore, Hyderabad, Delhi..."
+                  />
+                </div>
+
+                {/* Food Preference */}
+                <div>
+                  <label className="block text-xs font-extrabold text-slate-300 mb-1">Food Preference</label>
+                  <select
+                    value={prefForm.must_food_preference || ""}
+                    onChange={(e) => setPrefForm(p => ({ ...p, must_food_preference: e.target.value }))}
+                    className="w-full bg-slate-950 border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-pink-500"
+                  >
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Non-Vegetarian">Non-Vegetarian</option>
+                  </select>
+                </div>
+
+                {/* Dealbreakers */}
+                <div className="flex items-center gap-4 pt-1">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-extrabold text-slate-300">
+                    <input
+                      type="checkbox"
+                      checked={prefForm.dealbreaker_smoking}
+                      onChange={(e) => setPrefForm(p => ({ ...p, dealbreaker_smoking: e.target.checked }))}
+                      className="rounded border-slate-700 bg-slate-950 text-pink-500 focus:ring-0"
+                    />
+                    No Smoking Dealbreaker
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-extrabold text-slate-300">
+                    <input
+                      type="checkbox"
+                      checked={prefForm.dealbreaker_drinking}
+                      onChange={(e) => setPrefForm(p => ({ ...p, dealbreaker_drinking: e.target.checked }))}
+                      className="rounded border-slate-700 bg-slate-950 text-pink-500 focus:ring-0"
+                    />
+                    No Drinking Dealbreaker
+                  </label>
+                </div>
+              </div>
+
+              {/* PREFERS SECTION */}
+              <div className="bg-blue-950/10 p-4 rounded-2xl border border-blue-500/10 space-y-3">
+                <span className="text-xs font-black text-blue-300 uppercase tracking-widest block mb-1">
+                  ⭐ Prefers (Scoring Weight Boosts)
+                </span>
+
+                {/* Education */}
+                <div>
+                  <label className="block text-xs font-extrabold text-slate-300 mb-1">Preferred Education</label>
+                  <select
+                    value={prefForm.prefer_education_level}
+                    onChange={(e) => setPrefForm(p => ({ ...p, prefer_education_level: e.target.value }))}
+                    className="w-full bg-slate-950 border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-pink-500"
+                  >
+                    <option value="Master's Degree">Master's Degree</option>
+                    <option value="MBA">MBA</option>
+                    <option value="MD">MD (Medicine)</option>
+                    <option value="B.Tech + MS">B.Tech + MS</option>
+                    <option value="Bachelor's Degree">Bachelor's Degree</option>
+                  </select>
+                </div>
+
+                {/* Minimum Income */}
+                <div>
+                  <label className="block text-xs font-extrabold text-slate-300 mb-1">Minimum Income Preferred (LPA)</label>
+                  <input
+                    type="number"
+                    value={prefForm.prefer_income_min}
+                    onChange={(e) => setPrefForm(p => ({ ...p, prefer_income_min: parseInt(e.target.value) || 0 }))}
+                    className="w-full bg-slate-950/80 border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-pink-500"
+                    min="0"
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsPreferencesModalOpen(false)}
+                  className="px-4 py-2 text-slate-300 hover:text-white text-sm font-bold bg-white/5 hover:bg-white/10 rounded-xl transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 text-white text-sm font-black bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 rounded-xl transition-all shadow-lg shadow-pink-500/20"
+                >
+                  Save & Apply Filters
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

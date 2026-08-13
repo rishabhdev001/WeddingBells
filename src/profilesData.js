@@ -229,7 +229,7 @@ export const seedProfiles = [
 
 // Helper to calculate Match Compatibility Score based on the specified weights
 // Age: 15%, Education: 10%, Career: 10%, Location: 10%, Lifestyle: 15%, Family: 10%, Religion/Community: 10%, Interests: 10%, Future Goals: 10%
-export function calculateHybridScore(userProfile, targetProfile) {
+export function calculateHybridScore(userProfile, targetProfile, preferences = null) {
   let score = 0;
   const reasons = [];
 
@@ -246,16 +246,13 @@ export function calculateHybridScore(userProfile, targetProfile) {
   }
 
   // 2. Education (10%)
-  if (userProfile.education_level === targetProfile.education_level) {
+  const educationPref = preferences ? preferences.prefer_education_level : userProfile.education_level;
+  if (targetProfile.education_level === educationPref) {
     score += 10;
-    reasons.push("Matching education level");
-  } else if (userProfile.education_level.includes("Master's") || userProfile.education_level.includes("MBA") || userProfile.education_level.includes("MD")) {
-    if (targetProfile.education_level.includes("Master's") || targetProfile.education_level.includes("MBA") || targetProfile.education_level.includes("MD") || targetProfile.education_level.includes("B.Tech")) {
-      score += 8;
-      reasons.push("Highly educated matching profile");
-    } else {
-      score += 5;
-    }
+    reasons.push("Matching preferred education level");
+  } else if (targetProfile.education_level?.includes("Master's") || targetProfile.education_level?.includes("MBA") || targetProfile.education_level?.includes("MD")) {
+    score += 8;
+    reasons.push("Highly educated matching profile");
   } else {
     score += 5;
   }
@@ -274,11 +271,13 @@ export function calculateHybridScore(userProfile, targetProfile) {
   }
 
   // 4. Location (10%)
-  const userCity = userProfile.location.split(",")[0].trim();
-  const targetCity = targetProfile.location.split(",")[0].trim();
-  if (userCity === targetCity) {
+  const targetCity = targetProfile.location.split(",")[0].trim().toLowerCase();
+  const preferredLocations = preferences?.must_locations || [userProfile.location.split(",")[0].trim()];
+  const locationMatched = preferredLocations.some(loc => targetCity.includes(loc.toLowerCase()));
+
+  if (locationMatched) {
     score += 10;
-    reasons.push(`Both based in ${userCity}`);
+    reasons.push(`Based in preferred location`);
   } else if (userProfile.about_me?.toLowerCase().includes("relocat") || targetProfile.about_me?.toLowerCase().includes("relocat")) {
     score += 8;
     reasons.push("Flexible about relocation after marriage");
